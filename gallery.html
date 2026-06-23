@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Photo gallery of Denmark De Leon — photobiography, family, friends, and faith.">
+  <title>Gallery — Denmark De Leon</title>
+  <link rel="icon" href="profile.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-container">
+      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <nav><ul class="nav">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="autobiography.html">Autobiography</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html">Coming Soon</a></li>
+      </ul></nav>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+  <main>
+    <h1 class="page-title">Gallery</h1>
+    <p class="page-sub">Select a category to explore memories and milestones.</p>
+    <div class="gallery-grid">
+      <a href="photobiography.html" class="gallery-card">
+        <img src="images/myphoto.jpg" alt="Photobiography">
+        <div class="gallery-card-body">
+          <span>📷 Photobiography</span>
+          <p>Childhood adventures, school days, and graduation moments.</p>
+        </div>
+      </a>
+      <a href="family.html" class="gallery-card">
+        <img src="images/family.jpg" alt="Family">
+        <div class="gallery-card-body">
+          <span>👨‍👩‍👦 Family</span>
+          <p>Reunions, holiday celebrations, and weekend bonding.</p>
+        </div>
+      </a>
+      <a href="friends.html" class="gallery-card">
+        <img src="images/friends.jpeg" alt="Friends">
+        <div class="gallery-card-body">
+          <span>🤝 Friends</span>
+          <p>Memories with high school friends and college barkada.</p>
+        </div>
+      </a>
+      <a href="faith.html" class="gallery-card">
+        <img src="images/lovers.png" alt="Faith">
+        <div class="gallery-card-body">
+          <span>✝️ Faith</span>
+          <p>Spiritual reflections, Bible verses, and beliefs.</p>
+        </div>
+      </a>
+    </div>
+  </main>
+  <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
+<script>
+(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
+function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+</script>
+</body>
+</html>

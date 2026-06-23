@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Friends photo gallery of Denmark De Leon — high school barkada and college friends.">
+  <title>Friends — Denmark De Leon</title>
+  <link rel="icon" href="profile.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-container">
+      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <nav><ul class="nav">
+        <li><a href="homepage.html">Home</a></li><li><a href="profile.html">Profile</a></li>
+        <li><a href="autobiography.html">Autobiography</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html">Coming Soon</a></li>
+      </ul></nav>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+  <main>
+    <a href="gallery.html" class="back-link">← Back to Gallery</a>
+    <h1>My Friends</h1>
+    <p style="color:var(--muted); margin-bottom:1.25rem;">Good times and unforgettable memories with high school friends and college barkada.</p>
+    <div class="photo-grid">
+      <div class="photo-item"><img src="images/friends/friends1.png" alt=""><div class="caption">Random SM moments with kuya Jef and ate Arlea</div></div>
+      <div class="photo-item"><img src="images/friends/friends2.png" alt=""><div class="caption">First day of class pero BPO kasama?</div></div>
+      <div class="photo-item"><img src="images/friends/friends3.png" alt=""><div class="caption">Grade 11 friendsss</div></div>
+      <div class="photo-item"><img src="images/friends/friends4.png" alt=""><div class="caption">JS Prom</div></div>
+      <div class="photo-item"><img src="images/friends/friends5.png" alt=""><div class="caption">Grade 10 pandemic friendss</div></div>
+      <div class="photo-item"><img src="images/friends/friends6.png" alt=""><div class="caption">Grade 10 pandemic friends pictorial</div></div>
+      <div class="photo-item"><img src="images/friends/friends7.png" alt=""><div class="caption">Grade 11 friendsss</div></div>
+      <div class="photo-item"><img src="images/friends/friends8.png" alt=""><div class="caption">Grade 11 classmates</div></div>
+      <div class="photo-item"><img src="images/friends/friends9.png" alt=""><div class="caption">Random day with grade 11 friends</div></div>
+      <div class="photo-item"><img src="images/friends/friends10.png" alt=""><div class="caption">Random aya sa labas with ate Pk</div></div>
+      <div class="photo-item"><img src="images/friends/friends11.png" alt=""><div class="caption">Church friends</div></div>
+      <div class="photo-item"><img src="images/friends/friends12.png" alt=""><div class="caption">Grade 8 practice??</div></div>
+    </div>
+  </main>
+  <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
+<script>
+(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
+function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+</script>
+</body>
+</html>

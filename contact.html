@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Denmark De Leon — Facebook, email, and phone.">
+  <title>Contact — Denmark De Leon</title>
+  <link rel="icon" href="profile.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-container">
+      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <nav><ul class="nav">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="autobiography.html">Autobiography</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul></nav>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+  <main>
+    <div class="content-container">
+      <h1 class="page-title">Contact Me</h1>
+      <p style="color:var(--muted);">Feel free to reach out for academic projects, collaborations, or any inquiries.</p>
+      <div class="contact-card">
+        <div class="contact-row">
+          <span class="ci">📘</span>
+          <div><strong>Facebook / Messenger</strong><a href="https://www.facebook.com/den.0001.1" target="_blank" rel="noopener noreferrer">Denmark De Leon</a></div>
+        </div>
+        <div class="contact-row">
+          <span class="ci">✉️</span>
+          <div><strong>Email</strong><a href="mailto:denmarkdeleon0901@gmail.com">denmarkdeleon0901@gmail.com</a></div>
+        </div>
+        <div class="contact-row">
+          <span class="ci">📱</span>
+          <div><strong>Phone</strong><a href="tel:09691579326">09691579326</a></div>
+        </div>
+        <div class="contact-row">
+          <span class="ci">📍</span>
+          <div><strong>Address</strong><span>San Fermin, Cauayan City, Isabela</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
+<script>
+(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
+function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+</script>
+</body>
+</html>

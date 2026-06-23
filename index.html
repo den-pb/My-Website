@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon — Denmark De Leon</title>
+  <link rel="icon" href="profile.jpg">
+  <link rel="stylesheet" href="styles.css">
+<style>
+html, body { height: 100%; }
+
+body {
+  background-image: url('underconstruction.gif'), url('underconstruction.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  animation: none;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 9, 15, 0.65);
+  z-index: 0;
+}
+
+.coming-soon {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  padding: 2rem;
+}
+
+.coming-soon h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.domain-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-2);
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: var(--text-2);
+  margin-bottom: 2rem;
+}
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: var(--gold);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.marquee span {
+  display: inline-block;
+  animation: scroll-text 12s linear infinite;
+}
+
+@keyframes scroll-text {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+#countdown {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--text);
+  margin-bottom: 2rem;
+  letter-spacing: 4px;
+}
+
+#countdown span {
+  display: inline-block;
+  min-width: 70px;
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.contact-info {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  display: inline-block;
+}
+
+.contact-info p {
+  font-size: 0.95rem;
+  color: var(--text-2);
+  margin-bottom: 0.75rem;
+}
+
+.contact-info p:last-child { margin-bottom: 0; }
+
+.contact-info a {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.contact-info a:hover {
+  color: #e2c06a;
+  text-decoration: underline;
+}
+
+.footer {
+  position: relative;
+  z-index: 1;
+  border-top: none;
+  margin-top: 0;
+  padding-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .coming-soon h1 { font-size: 2.2rem; }
+  #countdown { font-size: 2rem; }
+  #countdown span { min-width: 45px; }
+  .contact-info { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="coming-soon">
+  <h1>
+    Coming Soon
+    <span class="domain-name">denmarkdev.qqz.io</span>
+  </h1>
+
+  <p class="tagline">Our website is under construction. We're building something exciting!</p>
+
+  <div class="marquee"><span>&#9733; We'll be back shortly &mdash; stay tuned for updates! &#9733;</span></div>
+
+  <div id="countdown">
+    <span id="days">00</span><span id="separator1">:</span>
+    <span id="hours">00</span><span id="separator2">:</span>
+    <span id="minutes">00</span><span id="separator3">:</span>
+    <span id="seconds">00</span>
+  </div>
+  <span class="countdown-label">Days &nbsp;:&nbsp; Hours &nbsp;:&nbsp; Minutes &nbsp;:&nbsp; Seconds</span>
+
+  <div class="contact-info">
+    <p>Reach out directly:</p>
+    <p>Mobile: <a href="tel:+639935818831>0993-581-8831</a></p>
+    <p>Email: <a href="mailto:denmarkdeleon0901@gmail.com">denmarkdeleon0901@gmail.com</a></p>
+    <p>Messenger: <a href="https://m.me/den.0001.1" target="_blank" rel="noopener noreferrer">Message Me</a></p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p>
+</footer>
+
+<script>
+(function() {
+  var countDownDate = new Date().getTime() + (48 * 60 * 60 * 1000);
+
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("countdown").innerHTML = "We're live!";
+      return;
+    }
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").textContent = String(days).padStart(2, '0');
+    document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+  }, 1000);
+})();
+</script>
+
+</body>
+</html>

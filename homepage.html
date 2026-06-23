@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Denmark De Leon — BSIT student at ISU Cauayan. Personal website featuring portfolio, gallery, faith, and projects.">
+  <title>Home — Denmark De Leon</title>
+  <link rel="icon" href="profile.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-container">
+      <div class="logo">
+        <img src="profile.jpg" alt="Denmark De Leon" width="32" height="32">
+        <span>Denmark De Leon</span>
+      </div>
+      <nav>
+        <ul class="nav">
+          <li><a href="homepage.html" class="active">Home</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="autobiography.html">Autobiography</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="favorites.html">Favorites</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="index.html">Coming Soon</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow">BSIT Student · ISU Cauayan · Isabela</div>
+        <h1 class="hero-title">Denmark<br><em>De Leon</em></h1>
+        <p class="hero-sub">Aspiring IT professional guided by faith — passionate about programming, chess, and building things that matter.</p>
+        <div class="hero-actions">
+          <a href="profile.html" class="btn btn-primary">View Profile</a>
+          <a href="contact.html" class="btn">Contact Me</a>
+        </div>
+        <div class="social-links">
+          <a href="https://www.facebook.com/den.0001.1" target="_blank" rel="noopener noreferrer"><img src="images/facebook.png" alt="Facebook"></a>
+          <a href="https://www.instagram.com/notyour.den?igsh=ZTZscGJzMXg5MDIx" target="_blank" rel="noopener noreferrer"><img src="images/instagram.png" alt="Instagram"></a>
+        </div>
+      </div>
+      <div class="hero-img-wrap">
+        <img src="profile.jpg" alt="Denmark De Leon">
+      </div>
+    </section>
+
+    <div class="section-label">Quick Facts</div>
+    <div class="stat-row">
+      <div class="stat-chip"><strong>BSIT</strong>Course</div>
+      <div class="stat-chip"><strong>ISU Cauayan</strong>University</div>
+      <div class="stat-chip"><strong>Chess · Anime · Code</strong>Hobbies</div>
+      <div class="stat-chip"><strong>Exodus 14:14</strong>Life Verse</div>
+    </div>
+
+    <div class="section-label">Projects</div>
+    <div class="section-grid">
+      <div class="card">
+        <span class="card-icon">📚</span>
+        <h3>WeblibSys</h3>
+        <p style="font-size:0.85rem; margin-bottom:1rem;">Web-Based Library Management System for ISU Cauayan — search, real-time inventory, role levels & data management.</p>
+        <a href="MyWeblibSys.html" class="btn btn-primary">Launch →</a>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏥</span>
+        <h3>Campus Clinic System</h3>
+        <p style="font-size:0.85rem; margin-bottom:1rem;">QR Code check-in, Electronic Health Records, and cloud integration for campus clinic management.</p>
+        <a href="http://localhost:5173/login" class="btn">Launch →</a>
+      </div>
+    </div>
+
+    <div class="section-label">About Me</div>
+    <div class="card">
+      <p style="margin:0; font-size:0.92rem; color:var(--text-2);">I'm <strong style="color:var(--text);">Denmark</strong>, a BSIT student from Cauayan City who enjoys building digital solutions. Beyond coding, I'm active in my church community, compete in chess, and believe that technology and faith can walk hand in hand. My goal is to become a skilled IT professional who makes a positive impact.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p>
+  </footer>
+<script>
+(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
+function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+</script>
+</body>
+</html>

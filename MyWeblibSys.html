@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>WeblibSys – ISUCC Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --green:#1a5c2e;--green2:#2e7d32;--green3:#43a047;
+  --gold:#f5a623;--gold2:#ffb74d;
+  --dark:#1a2332;--mid:#3d4f63;--gray:#7a8fa6;
+  --light:#f4f6f9;--white:#fff;
+  --shadow:0 2px 16px rgba(0,0,0,.10);
+  --radius:10px;
+  --success:#27ae60;--danger:#e53935;--info:#0288d1;--warn:#f57c00;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Source Sans 3',sans-serif;background:var(--light);color:var(--dark);font-size:15px;}
+
+/* ── LOGIN ── */
+#loginScreen{display:flex;align-items:center;justify-content:center;
+  min-height:100vh;
+  background:linear-gradient(135deg,#0d3b1e 0%,#1a5c2e 45%,#2e7d32 70%,#33691e 100%);}
+.lc{background:rgba(255,255,255,.97);border-radius:18px;
+  padding:40px 44px;width:420px;max-width:95vw;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);}
+.lc-logo{text-align:center;margin-bottom:24px;}
+.lc-logo .badge{width:72px;height:72px;background:var(--green);
+  border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;
+  justify-content:center;font-size:2rem;}
+.lc-logo h1{font-family:'Merriweather',serif;font-size:1.8rem;
+  color:var(--green);letter-spacing:.5px;}
+.lc-logo p{font-size:.82rem;color:var(--gray);margin-top:3px;}
+.lc label{display:block;font-size:.78rem;font-weight:700;
+  color:var(--mid);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
+.lc select,.lc input{width:100%;padding:11px 14px;border:1.8px solid #dde3ec;
+  border-radius:8px;font-size:.95rem;font-family:inherit;outline:none;
+  transition:border-color .2s;background:#fafcff;margin-bottom:14px;}
+.lc select:focus,.lc input:focus{border-color:var(--green);}
+.lc-btn{width:100%;padding:13px;background:var(--green);color:#fff;
+  border:none;border-radius:8px;font-size:1rem;font-weight:700;
+  font-family:inherit;cursor:pointer;margin-top:4px;
+  transition:background .2s,transform .1s;}
+.lc-btn:hover{background:var(--green2);}
+.lc-btn:active{transform:scale(.98);}
+.lc-hint{margin-top:16px;background:#f0f7f1;border-radius:8px;
+  padding:11px 14px;font-size:.79rem;color:var(--mid);line-height:1.7;}
+.lc-hint b{color:var(--green);}
+
+/* ── APP SHELL ── */
+#app{display:none;flex-direction:row;min-height:100vh;}
+.sidebar{width:240px;background:var(--dark);color:#fff;
+  display:flex;flex-direction:column;flex-shrink:0;
+  position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sb-brand{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,.08);}
+.sb-brand h2{font-family:'Merriweather',serif;font-size:1.25rem;
+  color:var(--gold);letter-spacing:.5px;}
+.sb-brand p{font-size:.72rem;opacity:.55;margin-top:2px;}
+.sb-user{padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;gap:10px;}
+.sb-avatar{width:36px;height:36px;border-radius:50%;background:var(--green3);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1rem;flex-shrink:0;}
+.sb-user-info{min-width:0;}
+.sb-user-info p{font-size:.82rem;font-weight:600;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;}
+.sb-user-info span{font-size:.72rem;opacity:.55;text-transform:capitalize;}
+.sb-nav{flex:1;padding:8px 0;}
+.nav-item{display:flex;align-items:center;gap:11px;
+  padding:10px 18px;cursor:pointer;font-size:.88rem;
+  transition:background .15s;border-left:3px solid transparent;
+  white-space:nowrap;}
+.nav-item:hover{background:rgba(255,255,255,.07);}
+.nav-item.active{background:rgba(255,255,255,.12);
+  border-left-color:var(--gold);font-weight:600;}
+.nav-item .ni{font-size:1.05rem;width:20px;text-align:center;}
+.sb-out{padding:14px 18px;border-top:1px solid rgba(255,255,255,.08);
+  cursor:pointer;font-size:.82rem;opacity:.65;display:flex;align-items:center;gap:8px;}
+.sb-out:hover{opacity:1;}
+
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+.topbar{background:var(--white);padding:13px 26px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid #e4eaf2;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+.topbar h3{font-size:1.1rem;font-weight:700;color:var(--dark);}
+.topbar-right{font-size:.83rem;color:var(--gray);}
+.page{flex:1;padding:24px 28px;overflow-y:auto;}
+
+/* ── CARDS & STATS ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-bottom:24px;}
+.stat{background:var(--white);border-radius:var(--radius);
+  padding:18px 20px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:14px;border-top:3px solid transparent;}
+.stat.s1{border-color:var(--green);}
+.stat.s2{border-color:var(--gold);}
+.stat.s3{border-color:var(--info);}
+.stat.s4{border-color:var(--danger);}
+.stat .ico{font-size:2rem;}
+.stat-text p{font-size:.75rem;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;}
+.stat-text h3{font-size:1.7rem;font-weight:700;line-height:1.2;}
+
+.card{background:var(--white);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:22px 24px;margin-bottom:20px;}
+.card-title{font-size:1rem;font-weight:700;color:var(--green);
+  border-left:4px solid var(--gold);padding-left:10px;margin-bottom:16px;}
+
+/* ── TABLE ── */
+.tbar{display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:14px;flex-wrap:wrap;gap:10px;}
+.search-wrap{display:flex;align-items:center;gap:8px;
+  border:1.5px solid #dde3ec;border-radius:7px;
+  padding:8px 13px;background:#fafcff;}
+.search-wrap input{border:none;outline:none;font-size:.9rem;
+  font-family:inherit;width:220px;background:transparent;}
+.tcount{font-size:.8rem;color:var(--gray);}
+
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:.86rem;}
+thead tr{background:var(--green);color:#fff;}
+thead th{padding:10px 12px;text-align:left;font-weight:600;white-space:nowrap;}
+tbody tr{border-bottom:1px solid #f0f4f8;transition:background .1s;}
+tbody tr:hover{background:#f6fbf7;}
+tbody td{padding:9px 12px;}
+
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:.75rem;font-weight:700;white-space:nowrap;}
+.b-avail{background:#e8f5e9;color:#2e7d32;}
+.b-borrow{background:#fff8e1;color:#f57c00;}
+.b-over{background:#ffebee;color:#c62828;}
+.b-ret{background:#e3f2fd;color:#1565c0;}
+
+/* ── BUTTONS ── */
+.btn{padding:8px 16px;border:none;border-radius:7px;cursor:pointer;
+  font-size:.85rem;font-weight:600;font-family:inherit;transition:opacity .15s;}
+.btn:hover{opacity:.85;}
+.btn-sm{padding:4px 10px;font-size:.78rem;}
+.btn-green{background:var(--green);color:#fff;}
+.btn-gold{background:var(--gold);color:#fff;}
+.btn-info{background:var(--info);color:#fff;}
+.btn-danger{background:var(--danger);color:#fff;}
+.btn-gray{background:#7a8fa6;color:#fff;}
+.btn-success{background:var(--success);color:#fff;}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;
+  background:rgba(15,25,40,.5);z-index:999;
+  align-items:center;justify-content:center;}
+.overlay.on{display:flex;}
+.modal{background:#fff;border-radius:12px;padding:28px 30px;
+  width:92%;max-width:500px;box-shadow:0 12px 48px rgba(0,0,0,.25);
+  max-height:90vh;overflow-y:auto;}
+.modal h3{color:var(--green);font-size:1.15rem;margin-bottom:18px;
+  font-family:'Merriweather',serif;}
+.m-group{margin-bottom:13px;}
+.m-group label{display:block;font-size:.78rem;font-weight:700;
+  color:var(--mid);margin-bottom:5px;text-transform:uppercase;letter-spacing:.3px;}
+.m-group input,.m-group select,.m-group textarea{
+  width:100%;padding:9px 12px;border:1.8px solid #dde3ec;
+  border-radius:7px;font-size:.92rem;font-family:inherit;outline:none;}
+.m-group input:focus,.m-group select:focus{border-color:var(--green);}
+.m-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.m-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+.preview-box{background:#f6fbf7;border:1px solid #c8e6c9;
+  border-radius:7px;padding:9px 12px;font-size:.83rem;
+  color:var(--green);margin-top:6px;min-height:28px;}
+
+/* ── ALERTS ── */
+#alertArea{margin-bottom:14px;}
+.alert{padding:11px 16px;border-radius:8px;font-size:.88rem;margin-bottom:8px;}
+.a-s{background:#e8f5e9;color:#1b5e20;border:1px solid #a5d6a7;}
+.a-d{background:#ffebee;color:#b71c1c;border:1px solid #ef9a9a;}
+.a-i{background:#e3f2fd;color:#0d47a1;border:1px solid #90caf9;}
+
+/* ── REPORT ── */
+.rep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px;}
+.rep-card{background:var(--green);color:#fff;border-radius:var(--radius);
+  padding:16px;text-align:center;}
+.rep-card h4{font-size:2rem;font-weight:800;}
+.rep-card p{font-size:.75rem;opacity:.8;margin-top:2px;}
+
+/* ── PAGE HEADER ── */
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.ph h2{font-size:1.15rem;font-weight:700;}
+
+/* ── PAGINATION ── */
+.pag{display:flex;align-items:center;gap:6px;margin-top:14px;flex-wrap:wrap;}
+.pag button{padding:5px 11px;border:1.5px solid #dde3ec;background:#fff;
+  border-radius:6px;cursor:pointer;font-size:.82rem;font-family:inherit;}
+.pag button.active{background:var(--green);color:#fff;border-color:var(--green);}
+.pag button:hover:not(.active){background:#f0f7f1;}
+
+@media(max-width:680px){
+  .sidebar{width:56px;}
+  .sb-brand p,.sb-user-info,.nav-item span,.sb-out span{display:none;}
+  .sb-brand h2{font-size:.8rem;}
+  .nav-item{justify-content:center;padding:12px;}
+  .page{padding:14px;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="lc">
+    <div class="lc-logo">
+      <div class="badge">📘</div>
+      <h1>WeblibSys</h1>
+      <p>Isabela State University – Cauayan Campus Library</p>
+    </div>
+    <label>Login As</label>
+    <select id="roleSelect">
+      <option value="student">Student</option>
+      <option value="teacher">Teacher</option>
+      <option value="librarian">Chief Librarian (Admin)</option>
+      <option value="visitor">Visitor</option>
+    </select>
+    <label>ID / Username</label>
+    <input type="text" id="loginUser" placeholder=""/>
+    <label>Password</label>
+    <input type="password" id="loginPass" placeholder=""/>
+    <button class="lc-btn" onclick="doLogin()">Login</button>
+    <div class="lc-hint">
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <nav class="sidebar" id="sidebar"></nav>
+  <div class="main">
+    <div class="topbar">
+      <h3 id="pageTitle">Dashboard</h3>
+      <div class="topbar-right" id="topbarInfo"></div>
+    </div>
+    <div class="page" id="pageBody"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modalBox">
+    <h3 id="mTitle"></h3>
+    <div id="mBody"></div>
+    <div class="m-actions" id="mActions"></div>
+  </div>
+</div>
+
+<script>
+
+// ═══════════════════════════════════════════
+// DATABASE – 500 BOOKS
+// ═══════════════════════════════════════════
+const BOOKS_DATA = [
+  // ── IT / PROGRAMMING ──
+  {isbn:"978-971-0001",title:"Introduction to Programming",author:"Santos, Jose",category:"IT",copies:3},
+  {isbn:"978-971-0002",title:"Web Development with PHP and MySQL",author:"Reyes, Maria",category:"IT",copies:2},
+  {isbn:"978-971-0003",title:"Java Programming: A Beginner's Guide",author:"Cruz, Ricardo",category:"IT",copies:3},
+  {isbn:"978-971-0004",title:"Python for Everybody",author:"Garcia, Luisa",category:"IT",copies:4},
+  {isbn:"978-971-0005",title:"C++ Programming Fundamentals",author:"Dela Rosa, Pedro",category:"IT",copies:2},
+  {isbn:"978-971-0006",title:"HTML and CSS: Design and Build Websites",author:"Bautista, Ana",category:"IT",copies:3},
+  {isbn:"978-971-0007",title:"JavaScript: The Good Parts",author:"Tan, Samuel",category:"IT",copies:2},
+  {isbn:"978-971-0008",title:"Laravel PHP Framework",author:"Lim, Carlos",category:"IT",copies:2},
+  {isbn:"978-971-0009",title:"React JS for Beginners",author:"Torres, Elena",category:"IT",copies:2},
+  {isbn:"978-971-0010",title:"Node.js Essentials",author:"Flores, Miguel",category:"IT",copies:1},
+  {isbn:"978-971-0011",title:"Mobile App Development with Flutter",author:"Ramos, Diana",category:"IT",copies:2},
+  {isbn:"978-971-0012",title:"Android Programming",author:"Aquino, Jose",category:"IT",copies:2},
+  {isbn:"978-971-0013",title:"iOS Development with Swift",author:"Mendoza, Karen",category:"IT",copies:1},
+  {isbn:"978-971-0014",title:"Bootstrap 5 Web Design",author:"Villanueva, Danny",category:"IT",copies:3},
+  {isbn:"978-971-0015",title:"Vue.js Complete Guide",author:"Gomez, Rosa",category:"IT",copies:2},
+  {isbn:"978-971-0016",title:"Django for Beginners",author:"Castillo, Ben",category:"IT",copies:2},
+  {isbn:"978-971-0017",title:"Ruby on Rails Tutorial",author:"Navarro, Cathy",category:"IT",copies:1},
+  {isbn:"978-971-0018",title:"TypeScript Handbook",author:"Andres, Felix",category:"IT",copies:2},
+  {isbn:"978-971-0019",title:"Kotlin for Android",author:"Soriano, Lena",category:"IT",copies:2},
+  {isbn:"978-971-0020",title:"Progressive Web Apps",author:"Ibarra, Rey",category:"IT",copies:2},
+  // ── DATABASE ──
+  {isbn:"978-971-0021",title:"Database Management Systems",author:"Garcia, Luisa",category:"Database",copies:4},
+  {isbn:"978-971-0022",title:"SQL for Beginners",author:"Santiago, Mike",category:"Database",copies:3},
+  {isbn:"978-971-0023",title:"MySQL Complete Reference",author:"Dela Cruz, Fe",category:"Database",copies:3},
+  {isbn:"978-971-0024",title:"Oracle Database Fundamentals",author:"Pascual, Noel",category:"Database",copies:2},
+  {isbn:"978-971-0025",title:"MongoDB: The Definitive Guide",author:"Evangelista, Lisa",category:"Database",copies:2},
+  {isbn:"978-971-0026",title:"PostgreSQL: Up and Running",author:"Padilla, Aris",category:"Database",copies:2},
+  {isbn:"978-971-0027",title:"NoSQL Distilled",author:"Reyes, Maria",category:"Database",copies:2},
+  {isbn:"978-971-0028",title:"Database Design for Mere Mortals",author:"Hernandez, Carl",category:"Database",copies:3},
+  {isbn:"978-971-0029",title:"Data Warehousing Fundamentals",author:"Lopez, Tess",category:"Database",copies:2},
+  {isbn:"978-971-0030",title:"Redis in Action",author:"Vega, Arnel",category:"Database",copies:1},
+  // ── NETWORKING ──
+  {isbn:"978-971-0031",title:"Computer Networks",author:"Santos, Bert",category:"Networking",copies:3},
+  {isbn:"978-971-0032",title:"Network Security Essentials",author:"Cruz, Raul",category:"Networking",copies:3},
+  {isbn:"978-971-0033",title:"TCP/IP Illustrated",author:"Mendez, Harold",category:"Networking",copies:2},
+  {isbn:"978-971-0034",title:"Cisco Networking Academy",author:"Beltran, Sol",category:"Networking",copies:3},
+  {isbn:"978-971-0035",title:"Wireless Network Administration",author:"Castro, Leo",category:"Networking",copies:2},
+  {isbn:"978-971-0036",title:"CompTIA Network+ Study Guide",author:"Reyes, Jun",category:"Networking",copies:2},
+  {isbn:"978-971-0037",title:"Ethical Hacking and Penetration Testing",author:"Diaz, Bong",category:"Networking",copies:2},
+  {isbn:"978-971-0038",title:"Firewalls and Internet Security",author:"Manalo, Vic",category:"Networking",copies:2},
+  {isbn:"978-971-0039",title:"Cloud Computing Fundamentals",author:"Pascual, Noel",category:"Networking",copies:3},
+  {isbn:"978-971-0040",title:"Introduction to Cybersecurity",author:"Soriano, Kim",category:"Networking",copies:3},
+  // ── COMPUTER SCIENCE ──
+  {isbn:"978-971-0041",title:"Data Structures and Algorithms",author:"Lim, Carlo",category:"CS",copies:3},
+  {isbn:"978-971-0042",title:"Introduction to Algorithms",author:"Villafuerte, Drew",category:"CS",copies:2},
+  {isbn:"978-971-0043",title:"Operating Systems Concepts",author:"Tan, Samuel",category:"CS",copies:3},
+  {isbn:"978-971-0044",title:"Computer Organization and Architecture",author:"Manalo, Vic",category:"CS",copies:2},
+  {isbn:"978-971-0045",title:"Theory of Computation",author:"Bernardo, Jojo",category:"CS",copies:2},
+  {isbn:"978-971-0046",title:"Compiler Design",author:"Magsino, Tess",category:"CS",copies:2},
+  {isbn:"978-971-0047",title:"Artificial Intelligence: A Modern Approach",author:"Rivera, Ted",category:"CS",copies:2},
+  {isbn:"978-971-0048",title:"Machine Learning",author:"Dela Rosa, Pedro",category:"CS",copies:2},
+  {isbn:"978-971-0049",title:"Deep Learning",author:"Gonzales, Ernie",category:"CS",copies:1},
+  {isbn:"978-971-0050",title:"Software Engineering",author:"Saravanos, Alex",category:"CS",copies:3},
+  // ── INFORMATION SYSTEMS ──
+  {isbn:"978-971-0051",title:"Management Information Systems",author:"Laudon, Kevin",category:"IS",copies:3},
+  {isbn:"978-971-0052",title:"Systems Analysis and Design",author:"Flores, Marie",category:"IS",copies:3},
+  {isbn:"978-971-0053",title:"Enterprise Resource Planning",author:"Santos, Bert",category:"IS",copies:2},
+  {isbn:"978-971-0054",title:"E-Commerce Fundamentals",author:"Cruz, Raul",category:"IS",copies:3},
+  {isbn:"978-971-0055",title:"Decision Support Systems",author:"Aquino, Nena",category:"IS",copies:2},
+  {isbn:"978-971-0056",title:"IT Project Management",author:"Reyes, Jun",category:"IS",copies:3},
+  {isbn:"978-971-0057",title:"Business Process Management",author:"Diaz, Bong",category:"IS",copies:2},
+  {isbn:"978-971-0058",title:"Knowledge Management",author:"Tan, Evelyn",category:"IS",copies:2},
+  {isbn:"978-971-0059",title:"Information Security Management",author:"Dela Cruz, Fe",category:"IS",copies:3},
+  {isbn:"978-971-0060",title:"Digital Transformation",author:"Pascual, Noel",category:"IS",copies:2},
+  // ── MATHEMATICS ──
+  {isbn:"978-971-0061",title:"Calculus for Engineers",author:"Mendez, Harold",category:"Math",copies:5},
+  {isbn:"978-971-0062",title:"Discrete Mathematics",author:"Villanueva, Danny",category:"Math",copies:4},
+  {isbn:"978-971-0063",title:"Linear Algebra and its Applications",author:"Santiago, Mike",category:"Math",copies:3},
+  {isbn:"978-971-0064",title:"Probability and Statistics",author:"Bautista, Ana",category:"Math",copies:4},
+  {isbn:"978-971-0065",title:"College Algebra",author:"Castillo, Ben",category:"Math",copies:5},
+  {isbn:"978-971-0066",title:"Differential Equations",author:"Navarro, Cathy",category:"Math",copies:3},
+  {isbn:"978-971-0067",title:"Number Theory",author:"Andres, Felix",category:"Math",copies:2},
+  {isbn:"978-971-0068",title:"Abstract Algebra",author:"Soriano, Lena",category:"Math",copies:2},
+  {isbn:"978-971-0069",title:"Numerical Methods",author:"Ibarra, Rey",category:"Math",copies:3},
+  {isbn:"978-971-0070",title:"Trigonometry",author:"Gomez, Rosa",category:"Math",copies:4},
+  // ── GENERAL EDUCATION ──
+  {isbn:"978-971-0071",title:"Technical Writing for IT Professionals",author:"Abad, Felicia",category:"GE",copies:5},
+  {isbn:"978-971-0072",title:"Purposive Communication",author:"Belen, Grace",category:"GE",copies:4},
+  {isbn:"978-971-0073",title:"Readings in Philippine History",author:"Cruz, Cita",category:"GE",copies:4},
+  {isbn:"978-971-0074",title:"Ethics and Social Responsibility",author:"Dela Peña, Ruben",category:"GE",copies:3},
+  {isbn:"978-971-0075",title:"The Contemporary World",author:"Encarnacion, Sol",category:"GE",copies:3},
+  {isbn:"978-971-0076",title:"Understanding the Self",author:"Ferrer, Alma",category:"GE",copies:4},
+  {isbn:"978-971-0077",title:"Art Appreciation",author:"Galang, Petra",category:"GE",copies:3},
+  {isbn:"978-971-0078",title:"Science Technology and Society",author:"Hizon, Victor",category:"GE",copies:3},
+  {isbn:"978-971-0079",title:"National Service Training Program",author:"Ilagan, Nora",category:"GE",copies:5},
+  {isbn:"978-971-0080",title:"Filipino sa Piling Larang",author:"Jose, Luzviminda",category:"GE",copies:4},
+  {isbn:"978-971-0081",title:"Life and Works of Rizal",author:"Kalaw, Mel",category:"GE",copies:4},
+  {isbn:"978-971-0082",title:"Gender and Society",author:"Laya, Jasmin",category:"GE",copies:3},
+  {isbn:"978-971-0083",title:"Environmental Science",author:"Macapagal, Fe",category:"GE",copies:3},
+  {isbn:"978-971-0084",title:"Physical Education",author:"Narciso, Ben",category:"GE",copies:4},
+  {isbn:"978-971-0085",title:"Basic Economics with Taxation",author:"Ocampo, Rita",category:"GE",copies:3},
+  // ── RESEARCH & STATISTICS ──
+  {isbn:"978-971-0086",title:"Research Methods in IT",author:"Paras, Louie",category:"Research",copies:3},
+  {isbn:"978-971-0087",title:"Quantitative Methods",author:"Quizon, Benny",category:"Research",copies:4},
+  {isbn:"978-971-0088",title:"Statistics for IT Students",author:"Ramos, Diana",category:"Research",copies:3},
+  {isbn:"978-971-0089",title:"Technical Report Writing",author:"Santos, Belen",category:"Research",copies:3},
+  {isbn:"978-971-0090",title:"Applied Research Design",author:"Torres, Victor",category:"Research",copies:3},
+  {isbn:"978-971-0091",title:"Thesis and Dissertation Writing",author:"Umali, Cita",category:"Research",copies:4},
+  {isbn:"978-971-0092",title:"Likert Scale Analysis",author:"Velasco, Rolly",category:"Research",copies:2},
+  {isbn:"978-971-0093",title:"Survey Research Methods",author:"Wenceslao, Alma",category:"Research",copies:3},
+  {isbn:"978-971-0094",title:"Qualitative Research Methods",author:"Xavier, Sol",category:"Research",copies:2},
+  {isbn:"978-971-0095",title:"SPSS for Beginners",author:"Yap, Nora",category:"Research",copies:3},
+  // ── SCIENCE ──
+  {isbn:"978-971-0096",title:"College Physics",author:"Zabala, Vic",category:"Science",copies:4},
+  {isbn:"978-971-0097",title:"General Chemistry",author:"Ablaza, Nena",category:"Science",copies:4},
+  {isbn:"978-971-0098",title:"Biology for College Students",author:"Buenaventura, Sol",category:"Science",copies:3},
+  {isbn:"978-971-0099",title:"Earth Science",author:"Carandang, Vicky",category:"Science",copies:3},
+  {isbn:"978-971-0100",title:"Natural Science 1",author:"Dela Torre, Marco",category:"Science",copies:4},
+  // ── ELECTRONICS ──
+  {isbn:"978-971-0101",title:"Digital Electronics",author:"Espinoza, Bobby",category:"Electronics",copies:3},
+  {isbn:"978-971-0102",title:"Microcontroller Programming",author:"Fernandez, Chito",category:"Electronics",copies:2},
+  {isbn:"978-971-0103",title:"Arduino Projects",author:"Guevara, Lena",category:"Electronics",copies:2},
+  {isbn:"978-971-0104",title:"Raspberry Pi Guide",author:"Hernandez, Neil",category:"Electronics",copies:2},
+  {isbn:"978-971-0105",title:"IoT Fundamentals",author:"Ibarra, Grace",category:"Electronics",copies:2},
+  {isbn:"978-971-0106",title:"Embedded Systems",author:"Jacinto, Roy",category:"Electronics",copies:2},
+  {isbn:"978-971-0107",title:"Circuit Analysis",author:"Katigbak, Lea",category:"Electronics",copies:3},
+  {isbn:"978-971-0108",title:"Electronics and Communications",author:"Lagman, Ben",category:"Electronics",copies:2},
+  {isbn:"978-971-0109",title:"Robotics Fundamentals",author:"Manalo, Cora",category:"Electronics",copies:2},
+  {isbn:"978-971-0110",title:"Signal Processing",author:"Nacpil, Dino",category:"Electronics",copies:2},
+  // ── MANAGEMENT & BUSINESS ──
+  {isbn:"978-971-0111",title:"Principles of Management",author:"Oropesa, Fely",category:"Management",copies:3},
+  {isbn:"978-971-0112",title:"Organizational Behavior",author:"Panganiban, Glen",category:"Management",copies:3},
+  {isbn:"978-971-0113",title:"Human Resource Management",author:"Quiambao, Rhea",category:"Management",copies:2},
+  {isbn:"978-971-0114",title:"Strategic Management",author:"Rosas, Eddie",category:"Management",copies:2},
+  {isbn:"978-971-0115",title:"Project Management Essentials",author:"Salvador, Tina",category:"Management",copies:3},
+  {isbn:"978-971-0116",title:"Financial Management",author:"Tarcena, Ulo",category:"Management",copies:2},
+  {isbn:"978-971-0117",title:"Marketing Management",author:"Urieta, Verna",category:"Management",copies:2},
+  {isbn:"978-971-0118",title:"Operations Management",author:"Valdes, Weng",category:"Management",copies:2},
+  {isbn:"978-971-0119",title:"Business Analytics",author:"Yabut, Xander",category:"Management",copies:2},
+  {isbn:"978-971-0120",title:"Entrepreneurship",author:"Zarate, Yolanda",category:"Management",copies:3},
+  // ── MORE IT BOOKS ──
+  {isbn:"978-971-0121",title:"Clean Code",author:"Martin, Robert C.",category:"IT",copies:2},
+  {isbn:"978-971-0122",title:"Design Patterns",author:"Santos, Group of Four",category:"IT",copies:2},
+  {isbn:"978-971-0123",title:"The Pragmatic Programmer",author:"Cruz, Andrew",category:"IT",copies:2},
+  {isbn:"978-971-0124",title:"Refactoring",author:"Dela Rosa, Martin",category:"IT",copies:1},
+  {isbn:"978-971-0125",title:"Agile Software Development",author:"Reyes, Robert",category:"IT",copies:2},
+  {isbn:"978-971-0126",title:"DevOps Handbook",author:"Torres, Gene",category:"IT",copies:2},
+  {isbn:"978-971-0127",title:"Docker Deep Dive",author:"Bautista, Nigel",category:"IT",copies:2},
+  {isbn:"978-971-0128",title:"Kubernetes in Action",author:"Cruz, Marko",category:"IT",copies:1},
+  {isbn:"978-971-0129",title:"Linux Command Line",author:"Lim, William",category:"IT",copies:3},
+  {isbn:"978-971-0130",title:"Git and GitHub Essentials",author:"Villanueva, Scott",category:"IT",copies:3},
+  {isbn:"978-971-0131",title:"REST API Design",author:"Gomez, Leonard",category:"IT",copies:2},
+  {isbn:"978-971-0132",title:"GraphQL",author:"Castillo, Eve",category:"IT",copies:2},
+  {isbn:"978-971-0133",title:"Microservices Patterns",author:"Navarro, Chris",category:"IT",copies:2},
+  {isbn:"978-971-0134",title:"Software Testing Principles",author:"Andres, Glenford",category:"IT",copies:2},
+  {isbn:"978-971-0135",title:"UX Design Fundamentals",author:"Soriano, Cynthia",category:"IT",copies:3},
+  {isbn:"978-971-0136",title:"UI Design Patterns",author:"Ibarra, Jenifer",category:"IT",copies:2},
+  {isbn:"978-971-0137",title:"Responsive Web Design",author:"Ramos, Ethan",category:"IT",copies:3},
+  {isbn:"978-971-0138",title:"Sass and CSS Preprocessors",author:"Dela Cruz, Chris",category:"IT",copies:2},
+  {isbn:"978-971-0139",title:"WordPress Development",author:"Garcia, Brian",category:"IT",copies:2},
+  {isbn:"978-971-0140",title:"E-Learning with Moodle",author:"Hernandez, Martin",category:"IT",copies:2},
+  // ── CS ADVANCED ──
+  {isbn:"978-971-0141",title:"Big Data Analytics",author:"Lopez, Tess",category:"CS",copies:2},
+  {isbn:"978-971-0142",title:"Natural Language Processing",author:"Vega, Arnel",category:"CS",copies:2},
+  {isbn:"978-971-0143",title:"Computer Vision",author:"Santos, Bert",category:"CS",copies:2},
+  {isbn:"978-971-0144",title:"Blockchain Technology",author:"Cruz, Raul",category:"CS",copies:2},
+  {isbn:"978-971-0145",title:"Cryptography and Network Security",author:"Mendez, Harold",category:"CS",copies:3},
+  {isbn:"978-971-0146",title:"Quantum Computing",author:"Beltran, Sol",category:"CS",copies:1},
+  {isbn:"978-971-0147",title:"Parallel Computing",author:"Castro, Leo",category:"CS",copies:2},
+  {isbn:"978-971-0148",title:"Computer Graphics",author:"Reyes, Jun",category:"CS",copies:2},
+  {isbn:"978-971-0149",title:"Game Development with Unity",author:"Diaz, Bong",category:"CS",copies:2},
+  {isbn:"978-971-0150",title:"Virtual Reality Basics",author:"Manalo, Vic",category:"CS",copies:2},
+  // ── DATABASE ADVANCED ──
+  {isbn:"978-971-0151",title:"Data Mining Concepts",author:"Soriano, Kim",category:"Database",copies:2},
+  {isbn:"978-971-0152",title:"Business Intelligence",author:"Dela Cruz, Fe",category:"Database",copies:2},
+  {isbn:"978-971-0153",title:"ETL and Data Integration",author:"Pascual, Noel",category:"Database",copies:2},
+  {isbn:"978-971-0154",title:"Apache Hadoop",author:"Evangelista, Lisa",category:"Database",copies:2},
+  {isbn:"978-971-0155",title:"Apache Spark",author:"Padilla, Aris",category:"Database",copies:1},
+  {isbn:"978-971-0156",title:"Elasticsearch in Action",author:"Reyes, Maria",category:"Database",copies:2},
+  {isbn:"978-971-0157",title:"Database Security",author:"Hernandez, Carl",category:"Database",copies:2},
+  {isbn:"978-971-0158",title:"Database Tuning",author:"Lopez, Tess",category:"Database",copies:2},
+  {isbn:"978-971-0159",title:"SQL Advanced Techniques",author:"Vega, Arnel",category:"Database",copies:2},
+  {isbn:"978-971-0160",title:"Firebase for Web Apps",author:"Santos, Bert",category:"Database",copies:2},
+  // ── MORE GENERAL ED ──
+  {isbn:"978-971-0161",title:"Panitikang Filipino",author:"Bautista, Lito",category:"GE",copies:4},
+  {isbn:"978-971-0162",title:"Komunikasyon sa Wikang Filipino",author:"Candelaria, Myrna",category:"GE",copies:4},
+  {isbn:"978-971-0163",title:"Lipunan at Kalikasan",author:"Delos Santos, Nita",category:"GE",copies:3},
+  {isbn:"978-971-0164",title:"Pagbasa at Pagsulat",author:"Espiritu, Emy",category:"GE",copies:4},
+  {isbn:"978-971-0165",title:"Mga Akda ni Rizal",author:"Florendo, Rene",category:"GE",copies:3},
+  {isbn:"978-971-0166",title:"Araling Panlipunan",author:"Generoso, Tere",category:"GE",copies:4},
+  {isbn:"978-971-0167",title:"Kasaysayan ng Pilipinas",author:"Hernando, Mark",category:"GE",copies:4},
+  {isbn:"978-971-0168",title:"Konstitusyon ng Pilipinas",author:"Ignacio, Beth",category:"GE",copies:3},
+  {isbn:"978-971-0169",title:"Politika at Pamamahala",author:"Jacinto, Roy",category:"GE",copies:3},
+  {isbn:"978-971-0170",title:"Ekonomiks",author:"Kalaw, Mila",category:"GE",copies:3},
+  // ── LIBRARY / INFORMATION SCIENCE ──
+  {isbn:"978-971-0171",title:"Library Management Systems",author:"Hamdani, Farid",category:"LibIS",copies:3},
+  {isbn:"978-971-0172",title:"Digital Library Services",author:"Lagas, Sophia",category:"LibIS",copies:3},
+  {isbn:"978-971-0173",title:"Automated Library System",author:"Obsanga, Angelo",category:"LibIS",copies:3},
+  {isbn:"978-971-0174",title:"Library Automation Philippines",author:"Pinto, Jose",category:"LibIS",copies:2},
+  {isbn:"978-971-0175",title:"Web-Based Library System",author:"Gito, Ernie",category:"LibIS",copies:3},
+  {isbn:"978-971-0176",title:"User Satisfaction in Library",author:"Seno-Sanoria, Myrna",category:"LibIS",copies:2},
+  {isbn:"978-971-0177",title:"Information Retrieval",author:"Bhati, Ankit",category:"LibIS",copies:3},
+  {isbn:"978-971-0178",title:"Library Services Platform",author:"Liu, Zhang",category:"LibIS",copies:2},
+  {isbn:"978-971-0179",title:"Cataloging and Classification",author:"Redekar, Rohit",category:"LibIS",copies:2},
+  {isbn:"978-971-0180",title:"SDLC Waterfall Model",author:"Saravanos, Alex",category:"LibIS",copies:3},
+  // ── NETWORKING ADVANCED ──
+  {isbn:"978-971-0181",title:"Network Penetration Testing",author:"Lambino, Rey",category:"Networking",copies:2},
+  {isbn:"978-971-0182",title:"VPN and Network Tunneling",author:"Macapuno, Bess",category:"Networking",copies:2},
+  {isbn:"978-971-0183",title:"IPv6 Networking",author:"Natividad, Carl",category:"Networking",copies:2},
+  {isbn:"978-971-0184",title:"Network Monitoring Tools",author:"Obusan, Dina",category:"Networking",copies:2},
+  {isbn:"978-971-0185",title:"Software Defined Networking",author:"Pascual, Eddy",category:"Networking",copies:2},
+  {isbn:"978-971-0186",title:"5G Technology",author:"Quimson, Faye",category:"Networking",copies:2},
+  {isbn:"978-971-0187",title:"Network Automation with Python",author:"Rabe, Gelo",category:"Networking",copies:2},
+  {isbn:"978-971-0188",title:"Zero Trust Security",author:"Sanchez, Hanna",category:"Networking",copies:2},
+  {isbn:"978-971-0189",title:"Network Forensics",author:"Tolentino, Ian",category:"Networking",copies:2},
+  {isbn:"978-971-0190",title:"Wireless Security",author:"Umali, Jana",category:"Networking",copies:2},
+  // ── ENGINEERING SUPPORT ──
+  {isbn:"978-971-0191",title:"Engineering Drawing",author:"Valdez, Karl",category:"Engineering",copies:3},
+  {isbn:"978-971-0192",title:"Mechanics of Materials",author:"Wilhemsen, Lily",category:"Engineering",copies:3},
+  {isbn:"978-971-0193",title:"Fluid Mechanics",author:"Ximenes, Manny",category:"Engineering",copies:3},
+  {isbn:"978-971-0194",title:"Thermodynamics",author:"Yabut, Nina",category:"Engineering",copies:3},
+  {isbn:"978-971-0195",title:"Statics and Dynamics",author:"Zabala, Oscar",category:"Engineering",copies:2},
+  {isbn:"978-971-0196",title:"Electrical Engineering Fundamentals",author:"Ablaza, Pam",category:"Engineering",copies:3},
+  {isbn:"978-971-0197",title:"Civil Engineering Drawing",author:"Buenaventura, Quinn",category:"Engineering",copies:2},
+  {isbn:"978-971-0198",title:"Mechanical Engineering",author:"Carandang, Ron",category:"Engineering",copies:2},
+  {isbn:"978-971-0199",title:"Engineering Economics",author:"Dela Torre, Sam",category:"Engineering",copies:3},
+  {isbn:"978-971-0200",title:"Engineering Ethics",author:"Espinoza, Tanya",category:"Engineering",copies:2},
+  // ── BATCH 201-250 ──
+  {isbn:"978-971-0201",title:"Introduction to Cybersecurity Law",author:"Fernandez, Ulric",category:"IS",copies:2},
+  {isbn:"978-971-0202",title:"Digital Forensics",author:"Guevara, Vera",category:"Networking",copies:2},
+  {isbn:"978-971-0203",title:"Penetration Testing Guide",author:"Hernandez, Waldo",category:"Networking",copies:2},
+  {isbn:"978-971-0204",title:"Malware Analysis",author:"Ibarra, Xenia",category:"Networking",copies:2},
+  {isbn:"978-971-0205",title:"Incident Response",author:"Jacinto, Yuri",category:"Networking",copies:2},
+  {isbn:"978-971-0206",title:"Security Operations Center",author:"Katigbak, Zara",category:"Networking",copies:2},
+  {isbn:"978-971-0207",title:"Python Data Science Handbook",author:"Lagman, Aaron",category:"IT",copies:2},
+  {isbn:"978-971-0208",title:"R Programming for Statistics",author:"Manalo, Bella",category:"Research",copies:2},
+  {isbn:"978-971-0209",title:"Pandas and NumPy",author:"Nacpil, Cleo",category:"IT",copies:2},
+  {isbn:"978-971-0210",title:"Data Visualization with Matplotlib",author:"Oropesa, Dave",category:"IT",copies:2},
+  {isbn:"978-971-0211",title:"Scikit-Learn Machine Learning",author:"Panganiban, Ella",category:"CS",copies:2},
+  {isbn:"978-971-0212",title:"TensorFlow for Beginners",author:"Quiambao, Fred",category:"CS",copies:2},
+  {isbn:"978-971-0213",title:"PyTorch Deep Learning",author:"Rosas, Grace",category:"CS",copies:2},
+  {isbn:"978-971-0214",title:"Natural Language Processing with Python",author:"Salvador, Hiro",category:"CS",copies:2},
+  {isbn:"978-971-0215",title:"Recommender Systems",author:"Tarcena, Iris",category:"CS",copies:2},
+  {isbn:"978-971-0216",title:"Computer Vision with OpenCV",author:"Urieta, Jake",category:"CS",copies:2},
+  {isbn:"978-971-0217",title:"Speech Recognition Systems",author:"Valdes, Kim",category:"CS",copies:2},
+  {isbn:"978-971-0218",title:"Reinforcement Learning",author:"Weng, Leah",category:"CS",copies:2},
+  {isbn:"978-971-0219",title:"Generative AI Fundamentals",author:"Xavier, Matt",category:"CS",copies:2},
+  {isbn:"978-971-0220",title:"Large Language Models",author:"Yabut, Noel",category:"CS",copies:2},
+  {isbn:"978-971-0221",title:"Prompt Engineering",author:"Zarate, Olive",category:"IT",copies:2},
+  {isbn:"978-971-0222",title:"ChatGPT for Students",author:"Ablaza, Pete",category:"IT",copies:3},
+  {isbn:"978-971-0223",title:"Microsoft Excel for IT",author:"Buenaventura, Quinn",category:"IS",copies:4},
+  {isbn:"978-971-0224",title:"Microsoft Word Advanced",author:"Carandang, Rose",category:"GE",copies:3},
+  {isbn:"978-971-0225",title:"Microsoft PowerPoint",author:"Dela Torre, Sam",category:"GE",copies:3},
+  {isbn:"978-971-0226",title:"Google Workspace",author:"Espinoza, Tanya",category:"IT",copies:3},
+  {isbn:"978-971-0227",title:"Microsoft Teams and Collaboration",author:"Fernandez, Ulric",category:"IS",copies:2},
+  {isbn:"978-971-0228",title:"Online Learning Tools",author:"Guevara, Vera",category:"IS",copies:3},
+  {isbn:"978-971-0229",title:"Information Literacy",author:"Hernandez, Waldo",category:"LibIS",copies:3},
+  {isbn:"978-971-0230",title:"Academic Writing for IT",author:"Ibarra, Xenia",category:"GE",copies:4},
+  {isbn:"978-971-0231",title:"Oral Communication",author:"Jacinto, Yuri",category:"GE",copies:4},
+  {isbn:"978-971-0232",title:"Intercultural Communication",author:"Katigbak, Zara",category:"GE",copies:3},
+  {isbn:"978-971-0233",title:"Critical Thinking",author:"Lagman, Aaron",category:"GE",copies:3},
+  {isbn:"978-971-0234",title:"Problem Solving in IT",author:"Manalo, Bella",category:"IT",copies:3},
+  {isbn:"978-971-0235",title:"Logical Reasoning",author:"Nacpil, Cleo",category:"Math",copies:3},
+  {isbn:"978-971-0236",title:"Finite Mathematics",author:"Oropesa, Dave",category:"Math",copies:3},
+  {isbn:"978-971-0237",title:"Graph Theory",author:"Panganiban, Ella",category:"Math",copies:2},
+  {isbn:"978-971-0238",title:"Set Theory",author:"Quiambao, Fredo",category:"Math",copies:2},
+  {isbn:"978-971-0239",title:"Mathematical Logic",author:"Rosas, Grace",category:"Math",copies:2},
+  {isbn:"978-971-0240",title:"Combinatorics",author:"Salvador, Hiro",category:"Math",copies:2},
+  {isbn:"978-971-0241",title:"Introduction to Topology",author:"Tarcena, Iris",category:"Math",copies:2},
+  {isbn:"978-971-0242",title:"Complex Analysis",author:"Urieta, Jake",category:"Math",copies:2},
+  {isbn:"978-971-0243",title:"Numerical Analysis",author:"Valdes, Kim",category:"Math",copies:2},
+  {isbn:"978-971-0244",title:"Game Theory",author:"Weng, Leah",category:"Math",copies:2},
+  {isbn:"978-971-0245",title:"Operations Research",author:"Xavier, Matt",category:"Math",copies:3},
+  {isbn:"978-971-0246",title:"Physics for IT Students",author:"Yabut, Nina",category:"Science",copies:3},
+  {isbn:"978-971-0247",title:"Applied Physics",author:"Zarate, Olive",category:"Science",copies:3},
+  {isbn:"978-971-0248",title:"Chemistry for Engineers",author:"Ablaza, Pete",category:"Science",copies:3},
+  {isbn:"978-971-0249",title:"Environmental Engineering",author:"Buenaventura, Quinn",category:"Science",copies:2},
+  {isbn:"978-971-0250",title:"Renewable Energy Systems",author:"Carandang, Rose",category:"Science",copies:2},
+  // ── BATCH 251-300 ──
+  {isbn:"978-971-0251",title:"Photovoltaic Systems",author:"Dela Torre, Sam",category:"Engineering",copies:2},
+  {isbn:"978-971-0252",title:"Power Electronics",author:"Espinoza, Tanya",category:"Electronics",copies:2},
+  {isbn:"978-971-0253",title:"Analog Electronics",author:"Fernandez, Ulric",category:"Electronics",copies:2},
+  {isbn:"978-971-0254",title:"VLSI Design",author:"Guevara, Vera",category:"Electronics",copies:2},
+  {isbn:"978-971-0255",title:"FPGA Programming",author:"Hernandez, Waldo",category:"Electronics",copies:1},
+  {isbn:"978-971-0256",title:"PLC Programming",author:"Ibarra, Xenia",category:"Electronics",copies:2},
+  {isbn:"978-971-0257",title:"Control Systems",author:"Jacinto, Yuri",category:"Electronics",copies:2},
+  {isbn:"978-971-0258",title:"Biomedical Electronics",author:"Katigbak, Zara",category:"Electronics",copies:2},
+  {isbn:"978-971-0259",title:"Sensor Technology",author:"Lagman, Aaron",category:"Electronics",copies:2},
+  {isbn:"978-971-0260",title:"Smart Home Technology",author:"Manalo, Bella",category:"Electronics",copies:2},
+  {isbn:"978-971-0261",title:"E-Governance",author:"Nacpil, Cleo",category:"IS",copies:2},
+  {isbn:"978-971-0262",title:"Health Informatics",author:"Oropesa, Dave",category:"IS",copies:2},
+  {isbn:"978-971-0263",title:"Geographic Information Systems",author:"Panganiban, Ella",category:"IS",copies:2},
+  {isbn:"978-971-0264",title:"Enterprise Architecture",author:"Quiambao, Fredo",category:"IS",copies:2},
+  {isbn:"978-971-0265",title:"IT Governance",author:"Rosas, Grace",category:"IS",copies:2},
+  {isbn:"978-971-0266",title:"Audit and Compliance",author:"Salvador, Hiro",category:"IS",copies:2},
+  {isbn:"978-971-0267",title:"Risk Management in IT",author:"Tarcena, Iris",category:"IS",copies:2},
+  {isbn:"978-971-0268",title:"IT Service Management",author:"Urieta, Jake",category:"IS",copies:2},
+  {isbn:"978-971-0269",title:"Cloud Security",author:"Valdes, Kim",category:"Networking",copies:2},
+  {isbn:"978-971-0270",title:"AWS for Beginners",author:"Weng, Leah",category:"IT",copies:2},
+  {isbn:"978-971-0271",title:"Microsoft Azure Fundamentals",author:"Xavier, Matt",category:"IT",copies:2},
+  {isbn:"978-971-0272",title:"Google Cloud Platform",author:"Yabut, Noel",category:"IT",copies:2},
+  {isbn:"978-971-0273",title:"DevSecOps",author:"Zarate, Olive",category:"IT",copies:2},
+  {isbn:"978-971-0274",title:"Site Reliability Engineering",author:"Ablaza, Pete",category:"IT",copies:2},
+  {isbn:"978-971-0275",title:"Continuous Integration and Delivery",author:"Buenaventura, Quinn",category:"IT",copies:2},
+  {isbn:"978-971-0276",title:"Ansible Automation",author:"Carandang, Rose",category:"IT",copies:2},
+  {isbn:"978-971-0277",title:"Terraform for Beginners",author:"Dela Torre, Sam",category:"IT",copies:2},
+  {isbn:"978-971-0278",title:"Jenkins CI/CD",author:"Espinoza, Tanya",category:"IT",copies:2},
+  {isbn:"978-971-0279",title:"Prometheus Monitoring",author:"Fernandez, Ulric",category:"IT",copies:1},
+  {isbn:"978-971-0280",title:"Grafana Dashboards",author:"Guevara, Vera",category:"IT",copies:1},
+  {isbn:"978-971-0281",title:"Scrum and Agile",author:"Hernandez, Waldo",category:"Management",copies:3},
+  {isbn:"978-971-0282",title:"Kanban Method",author:"Ibarra, Xenia",category:"Management",copies:2},
+  {isbn:"978-971-0283",title:"Lean Software Development",author:"Jacinto, Yuri",category:"Management",copies:2},
+  {isbn:"978-971-0284",title:"Product Management",author:"Katigbak, Zara",category:"Management",copies:2},
+  {isbn:"978-971-0285",title:"UX Research",author:"Lagman, Aaron",category:"IT",copies:2},
+  {isbn:"978-971-0286",title:"Usability Testing",author:"Manalo, Bella",category:"IT",copies:2},
+  {isbn:"978-971-0287",title:"Human Computer Interaction",author:"Nacpil, Cleo",category:"IT",copies:3},
+  {isbn:"978-971-0288",title:"Accessibility in Web Design",author:"Oropesa, Dave",category:"IT",copies:2},
+  {isbn:"978-971-0289",title:"Color Theory for Web",author:"Panganiban, Ella",category:"IT",copies:2},
+  {isbn:"978-971-0290",title:"Typography Design",author:"Quiambao, Fredo",category:"IT",copies:2},
+  {isbn:"978-971-0291",title:"Graphic Design Principles",author:"Rosas, Grace",category:"IT",copies:3},
+  {isbn:"978-971-0292",title:"Adobe Photoshop Guide",author:"Salvador, Hiro",category:"IT",copies:2},
+  {isbn:"978-971-0293",title:"Adobe Illustrator",author:"Tarcena, Iris",category:"IT",copies:2},
+  {isbn:"978-971-0294",title:"Figma for UI Design",author:"Urieta, Jake",category:"IT",copies:3},
+  {isbn:"978-971-0295",title:"Canva for Students",author:"Valdes, Kim",category:"GE",copies:3},
+  {isbn:"978-971-0296",title:"Video Editing Basics",author:"Weng, Leah",category:"IT",copies:2},
+  {isbn:"978-971-0297",title:"3D Modeling with Blender",author:"Xavier, Matt",category:"IT",copies:2},
+  {isbn:"978-971-0298",title:"Animation Fundamentals",author:"Yabut, Noel",category:"IT",copies:2},
+  {isbn:"978-971-0299",title:"Digital Photography",author:"Zarate, Olive",category:"GE",copies:3},
+  {isbn:"978-971-0300",title:"Multimedia Systems",author:"Ablaza, Pete",category:"IT",copies:2},
+  // ── BATCH 301-400 ──
+  {isbn:"978-971-0301",title:"Introduction to Sociology",author:"Buenaventura, Quinn",category:"GE",copies:3},
+  {isbn:"978-971-0302",title:"Introduction to Psychology",author:"Carandang, Rose",category:"GE",copies:3},
+  {isbn:"978-971-0303",title:"Philippine Literature",author:"Dela Torre, Sam",category:"GE",copies:3},
+  {isbn:"978-971-0304",title:"World Literature",author:"Espinoza, Tanya",category:"GE",copies:3},
+  {isbn:"978-971-0305",title:"Creative Writing",author:"Fernandez, Ulric",category:"GE",copies:3},
+  {isbn:"978-971-0306",title:"Journalism Basics",author:"Guevara, Vera",category:"GE",copies:2},
+  {isbn:"978-971-0307",title:"Media and Society",author:"Hernandez, Waldo",category:"GE",copies:3},
+  {isbn:"978-971-0308",title:"Human Rights",author:"Ibarra, Xenia",category:"GE",copies:3},
+  {isbn:"978-971-0309",title:"Public Administration",author:"Jacinto, Yuri",category:"Management",copies:2},
+  {isbn:"978-971-0310",title:"Local Governance",author:"Katigbak, Zara",category:"Management",copies:2},
+  {isbn:"978-971-0311",title:"Community Development",author:"Lagman, Aaron",category:"GE",copies:2},
+  {isbn:"978-971-0312",title:"Social Entrepreneurship",author:"Manalo, Bella",category:"Management",copies:2},
+  {isbn:"978-971-0313",title:"Tourism Management",author:"Nacpil, Cleo",category:"Management",copies:2},
+  {isbn:"978-971-0314",title:"Hospitality Management",author:"Oropesa, Dave",category:"Management",copies:2},
+  {isbn:"978-971-0315",title:"Food Technology",author:"Panganiban, Ella",category:"Science",copies:2},
+  {isbn:"978-971-0316",title:"Agriculture and Technology",author:"Quiambao, Fredo",category:"Science",copies:3},
+  {isbn:"978-971-0317",title:"Animal Science",author:"Rosas, Grace",category:"Science",copies:2},
+  {isbn:"978-971-0318",title:"Veterinary Science Basics",author:"Salvador, Hiro",category:"Science",copies:2},
+  {isbn:"978-971-0319",title:"Ecology",author:"Tarcena, Iris",category:"Science",copies:3},
+  {isbn:"978-971-0320",title:"Marine Biology",author:"Urieta, Jake",category:"Science",copies:2},
+  {isbn:"978-971-0321",title:"Genetics",author:"Valdes, Kim",category:"Science",copies:2},
+  {isbn:"978-971-0322",title:"Microbiology",author:"Weng, Leah",category:"Science",copies:3},
+  {isbn:"978-971-0323",title:"Anatomy and Physiology",author:"Xavier, Matt",category:"Science",copies:2},
+  {isbn:"978-971-0324",title:"Biochemistry",author:"Yabut, Noel",category:"Science",copies:2},
+  {isbn:"978-971-0325",title:"Organic Chemistry",author:"Zarate, Olive",category:"Science",copies:3},
+  {isbn:"978-971-0326",title:"Inorganic Chemistry",author:"Ablaza, Pete",category:"Science",copies:2},
+  {isbn:"978-971-0327",title:"Physical Chemistry",author:"Buenaventura, Quinn",category:"Science",copies:2},
+  {isbn:"978-971-0328",title:"Analytical Chemistry",author:"Carandang, Rose",category:"Science",copies:2},
+  {isbn:"978-971-0329",title:"Laboratory Safety",author:"Dela Torre, Sam",category:"Science",copies:3},
+  {isbn:"978-971-0330",title:"Scientific Research Writing",author:"Espinoza, Tanya",category:"Research",copies:3},
+  {isbn:"978-971-0331",title:"Action Research in Education",author:"Fernandez, Ulric",category:"Research",copies:3},
+  {isbn:"978-971-0332",title:"Case Study Method",author:"Guevara, Vera",category:"Research",copies:2},
+  {isbn:"978-971-0333",title:"Focus Group Discussion",author:"Hernandez, Waldo",category:"Research",copies:2},
+  {isbn:"978-971-0334",title:"Statistical Analysis",author:"Ibarra, Xenia",category:"Research",copies:3},
+  {isbn:"978-971-0335",title:"Research Ethics",author:"Jacinto, Yuri",category:"Research",copies:3},
+  {isbn:"978-971-0336",title:"Intellectual Property Law",author:"Katigbak, Zara",category:"IS",copies:2},
+  {isbn:"978-971-0337",title:"Cybercrime Law Philippines",author:"Lagman, Aaron",category:"IS",copies:3},
+  {isbn:"978-971-0338",title:"Data Privacy Act",author:"Manalo, Bella",category:"IS",copies:3},
+  {isbn:"978-971-0339",title:"Electronic Commerce Act",author:"Nacpil, Cleo",category:"IS",copies:2},
+  {isbn:"978-971-0340",title:"IT Law and Ethics",author:"Oropesa, Dave",category:"IS",copies:3},
+  {isbn:"978-971-0341",title:"COBIT Framework",author:"Panganiban, Ella",category:"IS",copies:2},
+  {isbn:"978-971-0342",title:"ISO 27001 Security",author:"Quiambao, Fredo",category:"IS",copies:2},
+  {isbn:"978-971-0343",title:"ITIL Service Management",author:"Rosas, Grace",category:"IS",copies:2},
+  {isbn:"978-971-0344",title:"PMP Exam Guide",author:"Salvador, Hiro",category:"Management",copies:2},
+  {isbn:"978-971-0345",title:"Certified Ethical Hacker",author:"Tarcena, Iris",category:"Networking",copies:2},
+  {isbn:"978-971-0346",title:"CompTIA Security+",author:"Urieta, Jake",category:"Networking",copies:2},
+  {isbn:"978-971-0347",title:"CompTIA A+ Guide",author:"Valdes, Kim",category:"Networking",copies:2},
+  {isbn:"978-971-0348",title:"CCNA Routing and Switching",author:"Weng, Leah",category:"Networking",copies:3},
+  {isbn:"978-971-0349",title:"CCNP Advanced Routing",author:"Xavier, Matt",category:"Networking",copies:2},
+  {isbn:"978-971-0350",title:"Wireshark Packet Analysis",author:"Yabut, Noel",category:"Networking",copies:2},
+  {isbn:"978-971-0351",title:"Nmap Network Scanning",author:"Zarate, Olive",category:"Networking",copies:2},
+  {isbn:"978-971-0352",title:"Metasploit Basics",author:"Ablaza, Pete",category:"Networking",copies:2},
+  {isbn:"978-971-0353",title:"Burp Suite Web Testing",author:"Buenaventura, Quinn",category:"Networking",copies:2},
+  {isbn:"978-971-0354",title:"Kali Linux Guide",author:"Carandang, Rose",category:"Networking",copies:2},
+  {isbn:"978-971-0355",title:"Web Application Security",author:"Dela Torre, Sam",category:"Networking",copies:2},
+  {isbn:"978-971-0356",title:"OWASP Top 10",author:"Espinoza, Tanya",category:"Networking",copies:2},
+  {isbn:"978-971-0357",title:"Exploit Development",author:"Fernandez, Ulric",category:"Networking",copies:1},
+  {isbn:"978-971-0358",title:"Reverse Engineering",author:"Guevara, Vera",category:"Networking",copies:1},
+  {isbn:"978-971-0359",title:"Memory Forensics",author:"Hernandez, Waldo",category:"Networking",copies:2},
+  {isbn:"978-971-0360",title:"Threat Intelligence",author:"Ibarra, Xenia",category:"Networking",copies:2},
+  {isbn:"978-971-0361",title:"Blockchain for Finance",author:"Jacinto, Yuri",category:"IS",copies:2},
+  {isbn:"978-971-0362",title:"Fintech Innovation",author:"Katigbak, Zara",category:"IS",copies:2},
+  {isbn:"978-971-0363",title:"Digital Banking",author:"Lagman, Aaron",category:"IS",copies:2},
+  {isbn:"978-971-0364",title:"Mobile Payment Systems",author:"Manalo, Bella",category:"IS",copies:2},
+  {isbn:"978-971-0365",title:"Social Media Marketing",author:"Nacpil, Cleo",category:"Management",copies:3},
+  {isbn:"978-971-0366",title:"Digital Marketing",author:"Oropesa, Dave",category:"Management",copies:3},
+  {isbn:"978-971-0367",title:"SEO Fundamentals",author:"Panganiban, Ella",category:"IT",copies:3},
+  {isbn:"978-971-0368",title:"Google Analytics",author:"Quiambao, Fredo",category:"IT",copies:2},
+  {isbn:"978-971-0369",title:"Email Marketing",author:"Rosas, Grace",category:"Management",copies:2},
+  {isbn:"978-971-0370",title:"Content Marketing",author:"Salvador, Hiro",category:"Management",copies:2},
+  {isbn:"978-971-0371",title:"E-Learning Design",author:"Tarcena, Iris",category:"IS",copies:2},
+  {isbn:"978-971-0372",title:"Online Teaching Tools",author:"Urieta, Jake",category:"IS",copies:3},
+  {isbn:"978-971-0373",title:"Distance Education",author:"Valdes, Kim",category:"IS",copies:2},
+  {isbn:"978-971-0374",title:"Blended Learning",author:"Weng, Leah",category:"IS",copies:2},
+  {isbn:"978-971-0375",title:"Gamification in Education",author:"Xavier, Matt",category:"IS",copies:2},
+  {isbn:"978-971-0376",title:"Augmented Reality in Education",author:"Yabut, Noel",category:"CS",copies:2},
+  {isbn:"978-971-0377",title:"Virtual Learning Environments",author:"Zarate, Olive",category:"IS",copies:2},
+  {isbn:"978-971-0378",title:"MOOCs and Online Learning",author:"Ablaza, Pete",category:"IS",copies:2},
+  {isbn:"978-971-0379",title:"Learning Management Systems",author:"Buenaventura, Quinn",category:"IS",copies:3},
+  {isbn:"978-971-0380",title:"Educational Technology",author:"Carandang, Rose",category:"IS",copies:3},
+  {isbn:"978-971-0381",title:"Smart Education",author:"Dela Torre, Sam",category:"IS",copies:2},
+  {isbn:"978-971-0382",title:"AI in Education",author:"Espinoza, Tanya",category:"CS",copies:2},
+  {isbn:"978-971-0383",title:"Data-Driven Education",author:"Fernandez, Ulric",category:"IS",copies:2},
+  {isbn:"978-971-0384",title:"Inclusive Education Technology",author:"Guevara, Vera",category:"IS",copies:2},
+  {isbn:"978-971-0385",title:"K-12 Curriculum Technology",author:"Hernandez, Waldo",category:"IS",copies:2},
+  {isbn:"978-971-0386",title:"Higher Education Management",author:"Ibarra, Xenia",category:"Management",copies:2},
+  {isbn:"978-971-0387",title:"University Administration",author:"Jacinto, Yuri",category:"Management",copies:2},
+  {isbn:"978-971-0388",title:"Academic Policy Writing",author:"Katigbak, Zara",category:"GE",copies:2},
+  {isbn:"978-971-0389",title:"Student Affairs Management",author:"Lagman, Aaron",category:"Management",copies:2},
+  {isbn:"978-971-0390",title:"Campus Development Planning",author:"Manalo, Bella",category:"Management",copies:2},
+  {isbn:"978-971-0391",title:"Library and Information Center Management",author:"Nacpil, Cleo",category:"LibIS",copies:3},
+  {isbn:"978-971-0392",title:"Archival Science",author:"Oropesa, Dave",category:"LibIS",copies:2},
+  {isbn:"978-971-0393",title:"Records Management",author:"Panganiban, Ella",category:"LibIS",copies:3},
+  {isbn:"978-971-0394",title:"Digital Preservation",author:"Quiambao, Fredo",category:"LibIS",copies:2},
+  {isbn:"978-971-0395",title:"Open Access Publishing",author:"Rosas, Grace",category:"LibIS",copies:2},
+  {isbn:"978-971-0396",title:"Metadata Standards",author:"Salvador, Hiro",category:"LibIS",copies:2},
+  {isbn:"978-971-0397",title:"Bibliographic Control",author:"Tarcena, Iris",category:"LibIS",copies:2},
+  {isbn:"978-971-0398",title:"Reference Services",author:"Urieta, Jake",category:"LibIS",copies:3},
+  {isbn:"978-971-0399",title:"Collection Development",author:"Valdes, Kim",category:"LibIS",copies:2},
+  {isbn:"978-971-0400",title:"Academic Library Services",author:"Weng, Leah",category:"LibIS",copies:3},
+  // ── BATCH 401-500 ──
+  {isbn:"978-971-0401",title:"Introduction to Nursing Informatics",author:"Xavier, Matt",category:"Science",copies:2},
+  {isbn:"978-971-0402",title:"Medical Records Management",author:"Yabut, Noel",category:"IS",copies:2},
+  {isbn:"978-971-0403",title:"Pharmacy Information Systems",author:"Zarate, Olive",category:"IS",copies:2},
+  {isbn:"978-971-0404",title:"Dental Informatics",author:"Ablaza, Pete",category:"IS",copies:2},
+  {isbn:"978-971-0405",title:"Public Health Informatics",author:"Buenaventura, Quinn",category:"IS",copies:2},
+  {isbn:"978-971-0406",title:"Telemedicine",author:"Carandang, Rose",category:"IS",copies:2},
+  {isbn:"978-971-0407",title:"Hospital Information System",author:"Dela Torre, Sam",category:"IS",copies:2},
+  {isbn:"978-971-0408",title:"Bioinformatics",author:"Espinoza, Tanya",category:"CS",copies:2},
+  {isbn:"978-971-0409",title:"Genomics Data Analysis",author:"Fernandez, Ulric",category:"CS",copies:1},
+  {isbn:"978-971-0410",title:"Computational Biology",author:"Guevara, Vera",category:"CS",copies:2},
+  {isbn:"978-971-0411",title:"Science Fair Projects Guide",author:"Hernandez, Waldo",category:"Research",copies:4},
+  {isbn:"978-971-0412",title:"Capstone Project Writing",author:"Ibarra, Xenia",category:"Research",copies:4},
+  {isbn:"978-971-0413",title:"OJT and Practicum Guide",author:"Jacinto, Yuri",category:"GE",copies:4},
+  {isbn:"978-971-0414",title:"Portfolio Development",author:"Katigbak, Zara",category:"GE",copies:3},
+  {isbn:"978-971-0415",title:"Career Planning for IT Students",author:"Lagman, Aaron",category:"GE",copies:3},
+  {isbn:"978-971-0416",title:"Job Interview Skills",author:"Manalo, Bella",category:"GE",copies:3},
+  {isbn:"978-971-0417",title:"Resume Writing for IT",author:"Nacpil, Cleo",category:"GE",copies:4},
+  {isbn:"978-971-0418",title:"Internship Success Guide",author:"Oropesa, Dave",category:"GE",copies:3},
+  {isbn:"978-971-0419",title:"Workplace Communication",author:"Panganiban, Ella",category:"GE",copies:3},
+  {isbn:"978-971-0420",title:"Professional Ethics in IT",author:"Quiambao, Fredo",category:"GE",copies:3},
+  {isbn:"978-971-0421",title:"Isabela Region Heritage",author:"Rosas, Grace",category:"GE",copies:3},
+  {isbn:"978-971-0422",title:"Ilocano Language and Culture",author:"Salvador, Hiro",category:"GE",copies:3},
+  {isbn:"978-971-0423",title:"Regional Development Studies",author:"Tarcena, Iris",category:"GE",copies:2},
+  {isbn:"978-971-0424",title:"Cagayan Valley Economic Profile",author:"Urieta, Jake",category:"GE",copies:2},
+  {isbn:"978-971-0425",title:"Isabela State University History",author:"Valdes, Kim",category:"GE",copies:3},
+  {isbn:"978-971-0426",title:"BSIT Program Handbook",author:"Weng, Leah",category:"GE",copies:5},
+  {isbn:"978-971-0427",title:"BSCS Program Handbook",author:"Xavier, Matt",category:"GE",copies:5},
+  {isbn:"978-971-0428",title:"College Student Handbook",author:"Yabut, Noel",category:"GE",copies:5},
+  {isbn:"978-971-0429",title:"Library User's Guide",author:"Zarate, Olive",category:"LibIS",copies:5},
+  {isbn:"978-971-0430",title:"ISU Research Journal Vol. 1",author:"ISU Publication",category:"Research",copies:3},
+  {isbn:"978-971-0431",title:"ISU Research Journal Vol. 2",author:"ISU Publication",category:"Research",copies:3},
+  {isbn:"978-971-0432",title:"ISU Research Journal Vol. 3",author:"ISU Publication",category:"Research",copies:3},
+  {isbn:"978-971-0433",title:"Philippine Technology Review",author:"PhilTech Press",category:"IS",copies:2},
+  {isbn:"978-971-0434",title:"CHED Curriculum Guide BSIT",author:"CHED Philippines",category:"GE",copies:3},
+  {isbn:"978-971-0435",title:"Philippine Standard Occupational Classification",author:"PSA Philippines",category:"GE",copies:2},
+  {isbn:"978-971-0436",title:"Technical Education in the Philippines",author:"TESDA Publication",category:"GE",copies:2},
+  {isbn:"978-971-0437",title:"ICT Masterplan Philippines",author:"DICT Philippines",category:"IS",copies:2},
+  {isbn:"978-971-0438",title:"Industry 4.0 and the Philippines",author:"DTI Philippines",category:"IS",copies:2},
+  {isbn:"978-971-0439",title:"Digital Philippines Roadmap",author:"DICT Publication",category:"IS",copies:2},
+  {isbn:"978-971-0440",title:"Philippine E-Commerce Roadmap",author:"DTI Publication",category:"IS",copies:2},
+  {isbn:"978-971-0441",title:"Introduction to Game Design",author:"Ablaza, Pete",category:"IT",copies:2},
+  {isbn:"978-971-0442",title:"Unity Game Engine",author:"Buenaventura, Quinn",category:"IT",copies:2},
+  {isbn:"978-971-0443",title:"Unreal Engine Basics",author:"Carandang, Rose",category:"IT",copies:2},
+  {isbn:"978-971-0444",title:"Game Physics",author:"Dela Torre, Sam",category:"IT",copies:2},
+  {isbn:"978-971-0445",title:"Game AI Programming",author:"Espinoza, Tanya",category:"IT",copies:2},
+  {isbn:"978-971-0446",title:"Game Networking",author:"Fernandez, Ulric",category:"Networking",copies:2},
+  {isbn:"978-971-0447",title:"Esports Management",author:"Guevara, Vera",category:"Management",copies:2},
+  {isbn:"978-971-0448",title:"Level Design Fundamentals",author:"Hernandez, Waldo",category:"IT",copies:2},
+  {isbn:"978-971-0449",title:"Storytelling in Games",author:"Ibarra, Xenia",category:"IT",copies:2},
+  {isbn:"978-971-0450",title:"Mobile Game Development",author:"Jacinto, Yuri",category:"IT",copies:2},
+  {isbn:"978-971-0451",title:"Drone Technology",author:"Katigbak, Zara",category:"Electronics",copies:2},
+  {isbn:"978-971-0452",title:"UAV Programming",author:"Lagman, Aaron",category:"Electronics",copies:2},
+  {isbn:"978-971-0453",title:"Smart City Technology",author:"Manalo, Bella",category:"IS",copies:2},
+  {isbn:"978-971-0454",title:"Smart Agriculture",author:"Nacpil, Cleo",category:"Science",copies:2},
+  {isbn:"978-971-0455",title:"Precision Farming",author:"Oropesa, Dave",category:"Science",copies:2},
+  {isbn:"978-971-0456",title:"GIS for Agriculture",author:"Panganiban, Ella",category:"Science",copies:2},
+  {isbn:"978-971-0457",title:"Remote Sensing",author:"Quiambao, Fredo",category:"Science",copies:2},
+  {isbn:"978-971-0458",title:"Satellite Communication",author:"Rosas, Grace",category:"Electronics",copies:2},
+  {isbn:"978-971-0459",title:"Amateur Radio Guide",author:"Salvador, Hiro",category:"Electronics",copies:2},
+  {isbn:"978-971-0460",title:"Telecommunications Fundamentals",author:"Tarcena, Iris",category:"Electronics",copies:3},
+  {isbn:"978-971-0461",title:"Voice over IP",author:"Urieta, Jake",category:"Networking",copies:2},
+  {isbn:"978-971-0462",title:"Unified Communications",author:"Valdes, Kim",category:"Networking",copies:2},
+  {isbn:"978-971-0463",title:"Video Conferencing Systems",author:"Weng, Leah",category:"IS",copies:2},
+  {isbn:"978-971-0464",title:"Collaboration Tools",author:"Xavier, Matt",category:"IS",copies:3},
+  {isbn:"978-971-0465",title:"Remote Work Technology",author:"Yabut, Noel",category:"IS",copies:3},
+  {isbn:"978-971-0466",title:"Work from Home Guide",author:"Zarate, Olive",category:"GE",copies:3},
+  {isbn:"978-971-0467",title:"Digital Wellbeing",author:"Ablaza, Pete",category:"GE",copies:2},
+  {isbn:"978-971-0468",title:"Social Media Safety",author:"Buenaventura, Quinn",category:"GE",copies:3},
+  {isbn:"978-971-0469",title:"Online Privacy Guide",author:"Carandang, Rose",category:"IS",copies:3},
+  {isbn:"978-971-0470",title:"Fake News Detection",author:"Dela Torre, Sam",category:"IS",copies:2},
+  {isbn:"978-971-0471",title:"Information Literacy for Students",author:"Espinoza, Tanya",category:"LibIS",copies:4},
+  {isbn:"978-971-0472",title:"Critical Information Evaluation",author:"Fernandez, Ulric",category:"LibIS",copies:3},
+  {isbn:"978-971-0473",title:"Source Verification Methods",author:"Guevara, Vera",category:"LibIS",copies:2},
+  {isbn:"978-971-0474",title:"Citation and Referencing Guide",author:"Hernandez, Waldo",category:"Research",copies:4},
+  {isbn:"978-971-0475",title:"APA Style Manual",author:"APA Publication",category:"Research",copies:5},
+  {isbn:"978-971-0476",title:"IEEE Citation Style",author:"IEEE Publication",category:"Research",copies:3},
+  {isbn:"978-971-0477",title:"MLA Handbook",author:"MLA Publication",category:"Research",copies:3},
+  {isbn:"978-971-0478",title:"Chicago Manual of Style",author:"Chicago Press",category:"Research",copies:2},
+  {isbn:"978-971-0479",title:"Anti-Plagiarism Guide",author:"Ibarra, Xenia",category:"Research",copies:4},
+  {isbn:"978-971-0480",title:"Turnitin User Guide",author:"Jacinto, Yuri",category:"Research",copies:3},
+  {isbn:"978-971-0481",title:"Computing History",author:"Katigbak, Zara",category:"CS",copies:2},
+  {isbn:"978-971-0482",title:"Evolution of the Internet",author:"Lagman, Aaron",category:"IS",copies:2},
+  {isbn:"978-971-0483",title:"History of Programming Languages",author:"Manalo, Bella",category:"CS",copies:2},
+  {isbn:"978-971-0484",title:"Pioneers of Computer Science",author:"Nacpil, Cleo",category:"CS",copies:2},
+  {isbn:"978-971-0485",title:"Women in Technology",author:"Oropesa, Dave",category:"GE",copies:3},
+  {isbn:"978-971-0486",title:"Technology and Society",author:"Panganiban, Ella",category:"GE",copies:3},
+  {isbn:"978-971-0487",title:"Future of Work",author:"Quiambao, Fredo",category:"GE",copies:2},
+  {isbn:"978-971-0488",title:"Automation and Employment",author:"Rosas, Grace",category:"IS",copies:2},
+  {isbn:"978-971-0489",title:"Technology Policy",author:"Salvador, Hiro",category:"IS",copies:2},
+  {isbn:"978-971-0490",title:"Digital Divide",author:"Tarcena, Iris",category:"IS",copies:2},
+  {isbn:"978-971-0491",title:"Sustainable Technology",author:"Urieta, Jake",category:"Science",copies:2},
+  {isbn:"978-971-0492",title:"Green Computing",author:"Valdes, Kim",category:"IT",copies:2},
+  {isbn:"978-971-0493",title:"Carbon Footprint of Data Centers",author:"Weng, Leah",category:"IT",copies:2},
+  {isbn:"978-971-0494",title:"IT and Climate Change",author:"Xavier, Matt",category:"Science",copies:2},
+  {isbn:"978-971-0495",title:"Responsible AI",author:"Yabut, Noel",category:"CS",copies:2},
+  {isbn:"978-971-0496",title:"AI Ethics",author:"Zarate, Olive",category:"CS",copies:2},
+  {isbn:"978-971-0497",title:"Technology for Persons with Disabilities",author:"Ablaza, Pete",category:"IS",copies:2},
+  {isbn:"978-971-0498",title:"Assistive Technology",author:"Buenaventura, Quinn",category:"IS",copies:2},
+  {isbn:"978-971-0499",title:"Digital Inclusion",author:"Carandang, Rose",category:"IS",copies:2},
+  {isbn:"978-971-0500",title:"Technology for Rural Communities",author:"Dela Torre, Sam",category:"IS",copies:3},
+];
+
+// ═══════════════════════════════════════════
+// STUDENTS DATA
+// ═══════════════════════════════════════════
+const STUDENTS_DATA = [
+  {id:"24-15565",name:"Denmark De Leon",course:"BSIT",yr:2},
+  {id:"2023-00002",name:"Maria Santos",course:"BSIT",yr:2},
+  {id:"2023-00003",name:"Carlo Reyes",course:"BSCS",yr:2},
+  {id:"2023-00004",name:"Ana Garcia",course:"BSIT",yr:1},
+];
+const TEACHERS_DATA = [
+  {id:"T-0001",name:"Prof. Pearly Ann Escalambre",dept:"CCSICT"},
+  {id:"T-0002",name:"Prof. Jose Santos",dept:"CCSICT"},
+  {id:"T-0003",name:"Prof. Maria Cruz",dept:"CCSICT"},
+];
+
+// ═══════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════
+let currentUser = null;
+
+function doLogin(){
+  const role = document.getElementById('roleSelect').value;
+  const user = document.getElementById('loginUser').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+
+  if(role==='visitor'){
+    currentUser={id:'GUEST',name:'Guest Visitor',role:'visitor'};
+    startApp(); return;
+  }
+  if(!user||!pass){alert('Enter your ID and password.');return;}
+
+  const creds={student:{pass:'student123',data:STUDENTS_DATA},teacher:{pass:'teacher123',data:TEACHERS_DATA}};
+  if(role==='librarian'){
+    if(pass!=='admin123'){alert('Wrong password.');return;}
+    currentUser={id:'LIB-001',name:'Chief Librarian',role:'librarian'};
+    startApp(); return;
+  }
+  if(creds[role]){
+    if(pass!==creds[role].pass){alert('Wrong password. Try demo credentials below.');return;}
+    const found=creds[role].data.find(u=>u.id===user)||creds[role].data[0];
+    currentUser={...found,role};
+    startApp(); return;
+  }
+}
+
+// ═══════════════════════════════════════════
+// DATABASE (localStorage)
+// ═══════════════════════════════════════════
+const DB={
+  init(){
+    if(!localStorage.getItem('wls_books')){
+      const books=BOOKS_DATA.map(b=>({...b,available:b.copies}));
+      localStorage.setItem('wls_books',JSON.stringify(books));
+    }
+    if(!localStorage.getItem('wls_students'))
+      localStorage.setItem('wls_students',JSON.stringify(STUDENTS_DATA));
+    if(!localStorage.getItem('wls_borrows'))
+      localStorage.setItem('wls_borrows',JSON.stringify([]));
+  },
+  books(){return JSON.parse(localStorage.getItem('wls_books'))||[];},
+  students(){return JSON.parse(localStorage.getItem('wls_students'))||[];},
+  borrows(){return JSON.parse(localStorage.getItem('wls_borrows'))||[];},
+  saveBooks(b){localStorage.setItem('wls_books',JSON.stringify(b));},
+  saveStudents(s){localStorage.setItem('wls_students',JSON.stringify(s));},
+  saveBorrows(b){localStorage.setItem('wls_borrows',JSON.stringify(b));},
+  book(isbn){return this.books().find(b=>b.isbn===isbn);},
+  student(id){return this.students().find(s=>s.id===id)||TEACHERS_DATA.find(t=>t.id===id);},
+  borrow(studentId,isbn){
+    const books=this.books();
+    const bk=books.find(b=>b.isbn===isbn);
+    if(!bk||bk.available<1)return{ok:false,msg:'Book not available or not found.'};
+    const stu=this.student(studentId);
+    if(!stu)return{ok:false,msg:'Student/Teacher ID not found.'};
+    const borrows=this.borrows();
+    if(borrows.find(b=>b.studentId===studentId&&b.isbn===isbn&&b.status==='borrowed'))
+      return{ok:false,msg:'Already borrowed this book.'};
+    bk.available-=1;
+    this.saveBooks(books);
+    const due=new Date();due.setDate(due.getDate()+7);
+    borrows.push({
+      id:'BRW-'+Date.now(),
+      studentId,studentName:stu.name,
+      isbn,bookTitle:bk.title,
+      borrowDate:new Date().toISOString(),
+      dueDate:due.toISOString(),
+      status:'borrowed'
+    });
+    this.saveBorrows(borrows);
+    return{ok:true,msg:`Borrowed! Due: ${due.toDateString()}`};
+  },
+  return_(studentId,isbn){
+    const borrows=this.borrows();
+    const idx=borrows.findIndex(b=>b.studentId===studentId&&b.isbn===isbn&&b.status==='borrowed');
+    if(idx===-1)return{ok:false,msg:'No active borrow record found.'};
+    const late=new Date()>new Date(borrows[idx].dueDate);
+    borrows[idx].status=late?'returned-late':'returned';
+    borrows[idx].returnDate=new Date().toISOString();
+    this.saveBorrows(borrows);
+    const books=this.books();
+    const bk=books.find(b=>b.isbn===isbn);
+    if(bk){bk.available+=1;this.saveBooks(books);}
+    return{ok:true,msg:late?'Returned (overdue).':'Returned on time!'};
+  },
+  addBook(b){
+    const books=this.books();
+    if(books.find(x=>x.isbn===b.isbn))return{ok:false,msg:'ISBN already exists.'};
+    books.push({...b,available:b.copies});
+    this.saveBooks(books);return{ok:true};
+  },
+  deleteBook(isbn){
+    const books=this.books().filter(b=>b.isbn!==isbn);
+    this.saveBooks(books);
+  },
+  addStudent(s){
+    const st=this.students();
+    if(st.find(x=>x.id===s.id))return{ok:false,msg:'ID already exists.'};
+    st.push(s);this.saveStudents(st);return{ok:true};
+  },
+  stats(){
+    const books=this.books();
+    const borrows=this.borrows();
+    const active=borrows.filter(b=>b.status==='borrowed');
+    const overdue=active.filter(b=>new Date()>new Date(b.dueDate));
+    return{
+      totalTitles:books.length,
+      totalCopies:books.reduce((s,b)=>s+b.copies,0),
+      available:books.reduce((s,b)=>s+b.available,0),
+      activeBorrows:active.length,
+      overdue:overdue.length,
+      totalStudents:this.students().length
+    };
+  }
+};
+
+// ═══════════════════════════════════════════
+// UI HELPERS
+// ═══════════════════════════════════════════
+function fmtDate(iso){
+  if(!iso)return'—';
+  return new Date(iso).toLocaleDateString('en-PH',{month:'short',day:'numeric',year:'numeric'});
+}
+function isOverdue(iso){return new Date()>new Date(iso);}
+function alert_(msg,type='i'){
+  const el=document.getElementById('alertArea');
+  if(!el)return;
+  el.innerHTML=`<div class="alert a-${type}">${msg}</div>`;
+  setTimeout(()=>{if(el)el.innerHTML='';},4000);
+}
+
+let modalAction=null;
+function openModal(title,body,action,actionLabel='Confirm'){
+  document.getElementById('mTitle').textContent=title;
+  document.getElementById('mBody').innerHTML=body;
+  modalAction=action;
+  document.getElementById('mActions').innerHTML=
+    `<button class="btn btn-gray" onclick="closeModal()">Cancel</button>
+     ${action?`<button class="btn btn-green" onclick="modalAction&&modalAction()">${actionLabel}</button>`:''}`;
+  document.getElementById('overlay').classList.add('on');
+}
+function closeModal(){document.getElementById('overlay').classList.remove('on');modalAction=null;}
+
+// Pagination
+let pgState={items:[],page:1,perPage:25,renderRow:null,tableId:'',countId:''};
+function renderPage(){
+  const start=(pgState.page-1)*pgState.perPage;
+  const slice=pgState.items.slice(start,start+pgState.perPage);
+  const tbody=document.querySelector(`#${pgState.tableId} tbody`);
+  if(!tbody)return;
+  tbody.innerHTML=slice.map(pgState.renderRow).join('');
+  const ct=document.getElementById(pgState.countId);
+  if(ct)ct.textContent=`${pgState.items.length} records`;
+  renderPagination();
+}
+function renderPagination(){
+  const total=Math.ceil(pgState.items.length/pgState.perPage);
+  const el=document.getElementById('pagination');
+  if(!el||total<=1){if(el)el.innerHTML='';return;}
+  let h='';
+  const range=3;
+  for(let i=1;i<=total;i++){
+    if(i===1||i===total||Math.abs(i-pgState.page)<=range)
+      h+=`<button class="${pgState.page===i?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    else if(Math.abs(i-pgState.page)===range+1)h+=`<span>…</span>`;
+  }
+  el.innerHTML=h;
+}
+function goPage(n){pgState.page=n;renderPage();}
+function filterItems(q){
+  const kw=q.toLowerCase();
+  const src=pgState.allItems||pgState.items;
+  pgState.items=q?src.filter(i=>Object.values(i).join(' ').toLowerCase().includes(kw)):src.slice();
+  pgState.page=1;renderPage();
+}
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+const NAV_ITEMS=[
+  {id:'dashboard',icon:'🏠',label:'Dashboard',roles:['student','teacher','librarian','visitor']},
+  {id:'catalog',icon:'📚',label:'Book Catalog',roles:['student','teacher','librarian','visitor']},
+  {id:'search',icon:'🔍',label:'Search Books',roles:['student','teacher','librarian','visitor']},
+  {id:'borrow',icon:'📤',label:'Borrow Book',roles:['librarian']},
+  {id:'return',icon:'📥',label:'Return Book',roles:['librarian']},
+  {id:'mybooks',icon:'📖',label:'My Borrowed',roles:['student','teacher']},
+  {id:'students',icon:'🎓',label:'Students',roles:['librarian']},
+  {id:'books_mgmt',icon:'🗂️',label:'Manage Books',roles:['librarian']},
+  {id:'reports',icon:'📊',label:'Reports',roles:['librarian']},
+];
+
+function buildSidebar(){
+  const items=NAV_ITEMS.filter(n=>n.roles.includes(currentUser.role));
+  document.getElementById('sidebar').innerHTML=`
+    <div class="sb-brand"><h2>📘 WeblibSys</h2><p>ISU Cauayan Library</p></div>
+    <div class="sb-user">
+      <div class="sb-avatar">${currentUser.name[0]}</div>
+      <div class="sb-user-info"><p>${currentUser.name}</p><span>${currentUser.role}</span></div>
+    </div>
+    <div class="sb-nav">
+      ${items.map(i=>`<div class="nav-item" id="nav-${i.id}" onclick="loadPage('${i.id}')">
+        <span class="ni">${i.icon}</span><span>${i.label}</span></div>`).join('')}
+    </div>
+    <div class="sb-out" onclick="doLogout()"><span>🚪</span><span>Logout</span></div>`;
+}
+
+function setActive(id){
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const el=document.getElementById('nav-'+id);if(el)el.classList.add('active');
+  const item=NAV_ITEMS.find(n=>n.id===id);
+  document.getElementById('pageTitle').textContent=item?item.label:'WeblibSys';
+  document.getElementById('topbarInfo').textContent=new Date().toLocaleDateString('en-PH',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+
+function startApp(){
+  DB.init();
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('app').style.display='flex';
+  buildSidebar();
+  loadPage('dashboard');
+}
+
+function doLogout(){
+  currentUser=null;
+  document.getElementById('app').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPass').value='';
+}
+
+// ═══════════════════════════════════════════
+// PAGES
+// ═══════════════════════════════════════════
+function loadPage(id){
+  setActive(id);
+  const pages={dashboard,catalog,search,borrow,returnPage,mybooks,students,books_mgmt,reports};
+  const fn=pages[id]||pages['dashboard'];
+  fn();
+}
+
+// ─── DASHBOARD ───
+function dashboard(){
+  const s=DB.stats();
+  const borrows=DB.borrows().slice(-6).reverse();
+  const role=currentUser.role;
+  let ql='';
+  if(role==='librarian')ql=`<div class="card"><div class="card-title">Quick Actions</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-green" onclick="loadPage('borrow')">📤 Borrow</button>
+      <button class="btn btn-info" onclick="loadPage('return')">📥 Return</button>
+      <button class="btn btn-gold" onclick="loadPage('books_mgmt')">➕ Add Book</button>
+      <button class="btn btn-gray" onclick="loadPage('reports')">📊 Reports</button>
+    </div></div>`;
+  document.getElementById('pageBody').innerHTML=`
+    <div id="alertArea"></div>
+    <p style="color:var(--gray);font-size:.88rem;margin-bottom:18px">Welcome back, <b>${currentUser.name}</b>!</p>
+    <div class="stats">
+      <div class="stat s1"><div class="ico">📚</div><div class="stat-text"><p>Book Titles</p><h3>${s.totalTitles}</h3></div></div>
+      <div class="stat s2"><div class="ico">✅</div><div class="stat-text"><p>Available</p><h3>${s.available}</h3></div></div>
+      <div class="stat s3"><div class="ico">📤</div><div class="stat-text"><p>Borrowed</p><h3>${s.activeBorrows}</h3></div></div>
+      <div class="stat s4"><div class="ico">⚠️</div><div class="stat-text"><p>Overdue</p><h3>${s.overdue}</h3></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Recent Transactions</div>
+      <div class="tbl-wrap"><table><thead><tr><th>Student</th><th>Book</th><th>Date</th><th>Status</th></tr></thead>
+      <tbody>${borrows.length===0?'<tr><td colspan="4" style="text-align:center;color:var(--gray)">No transactions yet.</td></tr>':
+        borrows.map(b=>{
+          const od=b.status==='borrowed'&&isOverdue(b.dueDate);
+          const cls=b.status.startsWith('returned')?'b-ret':od?'b-over':'b-borrow';
+          return`<tr><td>${b.studentName}</td><td>${b.bookTitle}</td>
+            <td>${fmtDate(b.borrowDate)}</td>
+            <td><span class="badge ${cls}">${od?'Overdue':b.status}</span></td></tr>`;
+        }).join('')
+      }</tbody></table></div>
+    </div>
+    ${ql}`;
+}
+
+// ─── CATALOG ───
+function catalog(){
+  const books=DB.books();
+  document.getElementById('pageBody').innerHTML=`
+    <div id="alertArea"></div>
+    <div class="ph"><h2>Book Catalog (${books.length} titles)</h2></div>
+    <div class="card">
+      <div class="tbar">
+        <div class="search-wrap">🔍<input type="text" placeholder="Search by title, author, ISBN, category..." oninput="filterItems(this.value)"/></div>
+        <span class="tcount" id="ctCount"></span>
+      </div>
+      <div class="tbl-wrap">
+        <table id="ctTable"><thead><tr><th>ISBN</th><th>Title</th><th>Author</th><th>Category</th><th>Available</th></tr></thead>
+        <tbody></tbody></table>
+      </div>
+      <div class="pag" id="pagination"></div>
+    </div>`;
+  pgState={
+    items:books,allItems:books.slice(),page:1,perPage:25,
+    countId:'ctCount',tableId:'ctTable',
+    renderRow:b=>`<tr><td style="font-size:.8rem;color:var(--gray)">${b.isbn}</td>
+      <td><b>${b.title}</b></td><td>${b.author}</td><td>${b.category}</td>
+      <td><span class="badge ${b.available>0?'b-avail':'b-borrow'}">${b.available}/${b.copies}</span></td></tr>`
+  };
+  renderPage();
+}
+
+// ─── SEARCH ───
+function search(){
+  document.getElementById('pageBody').innerHTML=`
+    <div id="alertArea"></div>
+    <div class="ph"><h2>Search Books</h2></div>
+    <div class="card">
+      <div class="m-group" style="max-width:500px">
+        <label>Search by Title, Author, ISBN, or Category</label>
+        <input type="text" id="srchInput" placeholder="Type keyword here..." oninput="doSearch(this.value)"/>
+      </div>
+      <div id="srchResults"><p style="color:var(--gray)">Enter keyword to search the 500-book catalog.</p></div>
+    </div>`;
+}
+function doSearch(q){
+  const books=DB.books();
+  const kw=q.toLowerCase().trim();
+  const el=document.getElementById('srchResults');
+  if(!kw){el.innerHTML='<p style="color:var(--gray)">Enter keyword to search.</p>';return;}
+  const res=books.filter(b=>b.title.toLowerCase().includes(kw)||b.author.toLowerCase().includes(kw)||b.isbn.toLowerCase().includes(kw)||b.category.toLowerCase().includes(kw));
+  if(!res.length){el.innerHTML=`<p style="color:var(--gray)">No results for "<b>${q}</b>".</p>`;return;}
+  el.innerHTML=`<p style="color:var(--gray);margin-bottom:10px">${res.length} result(s):</p>
+    <div class="tbl-wrap"><table><thead><tr><th>ISBN</th><th>Title</th><th>Author</th><th>Category</th><th>Status</th></tr></thead>
+    <tbody>${res.map(b=>`<tr>
+      <td style="font-size:.8rem;color:var(--gray)">${b.isbn}</td>
+      <td><b>${b.title}</b></td><td>${b.author}</td><td>${b.category}</td>
+      <td><span class="badge ${b.available>0?'b-avail':'b-borrow'}">${b.available>0?'Available':'Unavailable'}</span></td>
+    </tr>`).join('')}</tbody></table></div>`;
+}
+
+// ─── BORROW ───
+function borrow(){
+  document.getElementById('pageBody').innerHTML=`
+    <div id="alertArea"></div>
+    <div class="ph"><h2>📤 Borrow a Book</h2></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;flex-wrap:wrap">
+      <div class="card">
+        <div class="card-title">Process Borrow Transaction</div>
+        <div class="m-group">
+          <label>Student / Teacher ID</label>
+          <input type="text" id="bStudentId" placeholder="e.g. 2023-00001" oninput="previewStudent(this.value)"/>
+          <div class="preview-box" id="prevStudent"></div>
+        </div>
+        <div class="m-group">
+          <label>Book ISBN</label>
+          <input type="text" id="bIsbn" placeholder="e.g. 978-971-0001" oninput="previewBook(this.value)"/>
+          <div class="preview-box" id="prevBook"></div>
+        </div>
+        <button class="btn btn-green" onclick="processBorrow()">✅ Confirm Borrow</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Currently Borrowed (${DB.borrows().filter(b=>b.status==='borrowed').length})</div>
+        <div class="tbl-wrap">${borrowTable()}</div>
+      </div>
+    </div>`;
+}
+function previewStudent(v){
+  const s=DB.student(v.trim());
+  document.getElementById('prevStudent').textContent=s?`👤 ${s.name} (${s.course||s.dept||''})`:v.trim()?'ID not found':'';
+}
+function previewBook(v){
+  const b=DB.book(v.trim());
+  document.getElementById('prevBook').textContent=b?`📗 ${b.title} — Available: ${b.available}`:v.trim()?'ISBN not found':'';
+}
+function processBorrow(){
+  const sid=document.getElementById('bStudentId').value.trim();
+  const isbn=document.getElementById('bIsbn').value.trim();
+  const res=DB.borrow(sid,isbn);
+  alert_(res.msg,res.ok?'s':'d');
+  if(res.ok)borrow();
+}
+function borrowTable(){
+  const active=DB.borrows().filter(b=>b.status==='borrowed');
+  if(!active.length)return'<p style="color:var(--gray)">No active borrows.</p>';
+  return`<table><thead><tr><th>Student</th><th>Book</th><th>Due</th><th>Status</th></tr></thead>
+    <tbody>${active.map(b=>{const od=isOverdue(b.dueDate);return`<tr>
+      <td>${b.studentName}</td><td>${b.bookTitle}</td>
+      <td>${fmtDate(b.dueDate)}</td>
+      <td><span class="badge ${od?'b-over':'b-borrow'}">${od?'Overdue':'Active'}</span></td></tr>`;}).join('')}
+    </tbody></table>`;
+}
+
+// ─── RETURN ───
+function returnPage(){
+  document.getElementById('pageBody').innerHTML=`
+    <div id="alertArea"></div>
+    <div class="ph"><h2>📥 Return a Book</h2></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div class="card">
+        <div class="card-title">Process Return</div>
+        <div class="m-group">
+          <label>Student / Teacher ID</label>
+          <input type="text" id="rStudentId" placeholder="e.g. 2023-00001"/>
+        </div>
+        <button class="btn btn-info" onclick="lookupReturn()">🔍 Look Up</button>
+        <div id="returnResults" style="margin-top:14px"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Return History (Last 10)</div>
+        <div class="tbl-wrap">${returnHistTable()}</div>
+      </div>
+    </div>`;
+}
+function lookupReturn(){
+  const sid=document.getElementById('rStudentId').value.trim();
+  const active=DB.borrows().filter(b=>b.studentId===sid&&b.status==='borrowed');
+  const el=document.getElementById('returnResults');
+  if(!active.length){el.innerHTML='<p style="color:var(--gray)">No active borrows for this ID.</p>';return;}
+  const stu=DB.student(sid);
+  el.innerHTML=`<p style="color:var(--mid);margin-bottom:10px">Borrower: <b>${stu?stu.name:sid}</b></p>
+    <table><thead><tr><th>Book</th><th>Due</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody>${active.map(b=>{const od=isOverdue(b.dueDate);return`<tr>
+      <td>${b.bookTitle}</td><td>${fmtDate(b.dueDate)}</td>
+      <td><span class="badge ${od?'b-over':'b-borrow'}">${od?'Overdue':'Active'}</span></td>
+      <td><button class="btn btn-success btn-sm" onclick="processReturn('${sid}','${b.isbn}')">Return</button></td>
+    </tr>`;}).join('')}</tbody></table>`;
+}
+function processReturn(sid,isbn){
+  const res=DB.return_(sid,isbn);
+  alert_(res.msg,res.ok?'s':'d');
+  if(res.ok)returnPage();
+}
+function returnHistTable(){
+  const hist=DB.borrows().filter(b=>b.status.startsWith('returned')).reverse().slice(0,10);
+  if(!hist.length)return'<p style="color:var(--gray)">No returns yet.</p>';
+  return`<table><thead><tr><th>Student</th><th>Book</th><th>Returned</th><th>Status</th></tr></thead>
+    <tbody>${hist.map(b=>`<tr>
+      <td>${b.studentName}</td><td>${b.bookTitle}</td>
+      <td>${fmtDate(b.returnDate)}</td>
+      <td><span class="badge ${b.status==='returned-late'?'b-over':'b-ret'}">${b.status}</span></td>
+    </tr>`).join('')}</tbody></table>`;
+}
+
+// ─── MY BOOKS ───
+function mybooks(){
+  const sid=currentUser.id;
+  const all=DB.borrows().filter(b=>b.studentId===sid);
+  const active=all.filter(b=>b.status==='borrowed');
+  const hist=all.filter(b=>b.status.startsWith('returned')).reverse();
+  document.getElementById('pageBody').innerHTML=`
+    <div id="alertArea"></div>
+    <div class="ph"><h2>📖 My Borrowed Books</h2></div>
+    <div class="card">
+      <div class="card-title">Currently Borrowed (${active.length})</div>
+      <div class="tbl-wrap"><table><thead><tr><th>Book</th><th>Borrowed</th><th>Due Date</th><th>Status</th></tr></thead>
+      <tbody>${!active.length?'<tr><td colspan="4" style="text-align:center;color:var(--gray)">No active borrows.</td></tr>':
+        active.map(b=>{const od=isOverdue(b.dueDate);return`<tr>
+          <td><b>${b.bookTitle}</b></td><td>${fmtDate(b.borrowDate)}</td>
+          <td>${fmtDate(b.dueDate)}</td>
+          <td><span class="badge ${od?'b-over':'b-borrow'}">${od?'⚠️ Overdue':'Active'}</span></td></tr>`;}).join('')}
+      </tbody></table></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Return History</div>
+      <div class="tbl-wrap"><table><thead><tr><th>Book</th><th>Returned</th><th>Status</th></tr></thead>
+      <tbody>${!hist.length?'<tr><td colspan="3" style="text-align:center;color:var(--gray)">No history.</td></tr>':
+        hist.map(b=>`<tr><td>${b.bookTitle}</td><td>${fmtDate(b.returnDate)}</td>
+          <td><span class="badge ${b.status==='returned-late'?'b-over':'b-ret'}">${b.status}</span></td></tr>`).join('')}
+      </tbody></table></div>
+    </div>`;
+}
+
+// ─── STUDENTS ───
+function students(){
+  const st=DB.students();
+  document.getElementById('pageBody').innerHTML=`
+    <div id="alertArea"></div>
+    <div class="ph"><h2>🎓 Students</h2>
+      <button class="btn btn-green" onclick="addStudentModal()">+ Add Student</button></div>
+    <div class="card">
+      <div class="tbar">
+        <div class="search-wrap">🔍<input type="text" placeholder="Search students..." oninput="filterItems(this.value)"/></div>
+        <span class="tcount" id="stCount"></span>
+      </div>
+      <div class="tbl-wrap">
+        <table id="stTable"><thead><tr><th>Student ID</th><th>Name</th><th>Course</th><th>Year</th><th>Borrows</th><th>Action</th></tr></thead>
+        <tbody></tbody></table>
+      </div>
+      <div class="pag" id="pagination"></div>
+    </div>`;
+  pgState={
+    items:st,allItems:st.slice(),page:1,perPage:25,
+    countId:'stCount',tableId:'stTable',
+    renderRow:s=>{
+      const cnt=DB.borrows().filter(b=>b.studentId===s.id&&b.status==='borrowed').length;
+      return`<tr><td>${s.id}</td><td><b>${s.name}</b></td><td>${s.course}</td>
+        <td>Year ${s.yr}</td><td>${cnt}</td>
+        <td><button class="btn btn-info btn-sm" onclick="viewStudentBorrows('${s.id}')">History</button></td></tr>`;
+    }
+  };
+  renderPage();
+}
+function viewStudentBorrows(id){
+  const s=DB.student(id);
+  const all=DB.borrows().filter(b=>b.studentId===id);
+  openModal(`${s?s.name:id} – Borrow History`,
+    `<div class="tbl-wrap"><table><thead><tr><th>Book</th><th>Date</th><th>Status</th></tr></thead>
+    <tbody>${!all.length?'<tr><td colspan="3" style="color:var(--gray);text-align:center">No records.</td></tr>':
+      all.map(b=>`<tr><td>${b.bookTitle}</td><td>${fmtDate(b.borrowDate)}</td>
+        <td><span class="badge ${b.status.startsWith('returned')?'b-ret':'b-borrow'}">${b.status}</span></td></tr>`).join('')
+    }</tbody></table></div>`,null);
+}
+function addStudentModal(){
+  openModal('Add New Student',`
+    <div class="m-group"><label>Student ID</label><input type="text" id="ns_id" placeholder="2024-00001"/></div>
+    <div class="m-group"><label>Full Name</label><input type="text" id="ns_name" placeholder="Last, First"/></div>
+    <div class="m-row">
+      <div class="m-group"><label>Course</label><select id="ns_course">
+        <option>BSIT</option><option>BSCS</option><option>BSIS</option><option>BSECE</option>
+      </select></div>
+      <div class="m-group"><label>Year</label><select id="ns_yr">
+        <option>1</option><option>2</option><option>3</option><option>4</option>
+      </select></div>
+    </div>`,()=>{
+    const s={id:document.getElementById('ns_id').value.trim(),
+      name:document.getElementById('ns_name').value.trim(),
+      course:document.getElementById('ns_course').value,
+      yr:parseInt(document.getElementById('ns_yr').value)};
+    if(!s.id||!s.name){alert('Fill all fields.');return;}
+    const res=DB.addStudent(s);
+    closeModal();alert_(res.ok?'Student added!':res.msg,res.ok?'s':'d');
+    if(res.ok)students();
+  },'Save Student');
+}
+
+// ─── BOOKS MGMT ───
+function books_mgmt(){
+  const books=DB.books();
+  document.getElementById('pageBody').innerHTML=`
+    <div id="alertArea"></div>
+    <div class="ph"><h2>🗂️ Manage Books</h2>
+      <button class="btn btn-green" onclick="addBookModal()">+ Add Book</button></div>
+    <div class="card">
+      <div class="tbar">
+        <div class="search-wrap">🔍<input type="text" placeholder="Search books..." oninput="filterItems(this.value)"/></div>
+        <span class="tcount" id="bmCount"></span>
+      </div>
+      <div class="tbl-wrap">
+        <table id="bmTable"><thead><tr><th>ISBN</th><th>Title</th><th>Author</th><th>Category</th><th>Copies</th><th>Available</th><th></th></tr></thead>
+        <tbody></tbody></table>
+      </div>
+      <div class="pag" id="pagination"></div>
+    </div>`;
+  pgState={
+    items:books,allItems:books.slice(),page:1,perPage:25,
+    countId:'bmCount',tableId:'bmTable',
+    renderRow:b=>`<tr>
+      <td style="font-size:.8rem;color:var(--gray)">${b.isbn}</td>
+      <td><b>${b.title}</b></td><td>${b.author}</td><td>${b.category}</td>
+      <td>${b.copies}</td>
+      <td><span class="badge ${b.available>0?'b-avail':'b-borrow'}">${b.available}/${b.copies}</span></td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteBook('${b.isbn}')">🗑</button></td></tr>`
+  };
+  renderPage();
+}
+function addBookModal(){
+  openModal('Add New Book',`
+    <div class="m-group"><label>ISBN</label><input type="text" id="nb_isbn" placeholder="978-971-XXXX"/></div>
+    <div class="m-group"><label>Title</label><input type="text" id="nb_title" placeholder="Book title"/></div>
+    <div class="m-group"><label>Author</label><input type="text" id="nb_author" placeholder="Surname, First"/></div>
+    <div class="m-row">
+      <div class="m-group"><label>Category</label><select id="nb_cat">
+        <option>IT</option><option>CS</option><option>Database</option><option>Networking</option>
+        <option>IS</option><option>Math</option><option>Science</option><option>GE</option>
+        <option>Research</option><option>LibIS</option><option>Management</option>
+        <option>Electronics</option><option>Engineering</option>
+      </select></div>
+      <div class="m-group"><label>Copies</label><input type="number" id="nb_copies" value="1" min="1"/></div>
+    </div>`,()=>{
+    const copies=parseInt(document.getElementById('nb_copies').value)||1;
+    const b={isbn:document.getElementById('nb_isbn').value.trim(),
+      title:document.getElementById('nb_title').value.trim(),
+      author:document.getElementById('nb_author').value.trim(),
+      category:document.getElementById('nb_cat').value,copies};
+    if(!b.isbn||!b.title||!b.author){alert('Fill all fields.');return;}
+    const res=DB.addBook(b);
+    closeModal();alert_(res.ok?'Book added!':res.msg,res.ok?'s':'d');
+    if(res.ok)books_mgmt();
+  },'Add Book');
+}
+function deleteBook(isbn){
+  if(!confirm('Delete this book? Cannot be undone.'))return;
+  DB.deleteBook(isbn);alert_('Book deleted.','i');books_mgmt();
+}
+
+// ─── REPORTS ───
+function reports(){
+  const s=DB.stats();
+  const books=DB.books();
+  const allBorrows=DB.borrows();
+  // by category
+  const byCat={};
+  books.forEach(b=>{byCat[b.category]=(byCat[b.category]||0)+1;});
+  const catRows=Object.entries(byCat).sort((a,b)=>b[1]-a[1])
+    .map(([c,n])=>`<tr><td>${c}</td><td>${n}</td></tr>`).join('');
+  // most borrowed
+  const bCounts={};
+  allBorrows.forEach(b=>{bCounts[b.isbn]=(bCounts[b.isbn]||0)+1;});
+  const topBooks=books.sort((a,b)=>(bCounts[b.isbn]||0)-(bCounts[a.isbn]||0)).slice(0,8);
+  document.getElementById('pageBody').innerHTML=`
+    <div id="alertArea"></div>
+    <div class="ph"><h2>📊 Reports & Statistics</h2>
+      <button class="btn btn-gold" onclick="window.print()">🖨️ Print</button></div>
+    <div class="rep-grid">
+      <div class="rep-card"><h4>${s.totalTitles}</h4><p>Book Titles</p></div>
+      <div class="rep-card"><h4>${s.totalCopies}</h4><p>Total Copies</p></div>
+      <div class="rep-card"><h4>${s.available}</h4><p>Available</p></div>
+      <div class="rep-card"><h4>${s.activeBorrows}</h4><p>Active Borrows</p></div>
+      <div class="rep-card"><h4>${s.overdue}</h4><p>Overdue</p></div>
+      <div class="rep-card"><h4>${s.totalStudents}</h4><p>Students</p></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px">
+      <div class="card"><div class="card-title">Books by Category</div>
+        <div class="tbl-wrap"><table><thead><tr><th>Category</th><th>Titles</th></tr></thead>
+        <tbody>${catRows}</tbody></table></div></div>
+      <div class="card"><div class="card-title">Most Borrowed Books (Top 8)</div>
+        <div class="tbl-wrap"><table><thead><tr><th>Title</th><th>Borrows</th></tr></thead>
+        <tbody>${topBooks.map(b=>`<tr><td>${b.title}</td><td>${bCounts[b.isbn]||0}</td></tr>`).join('')}
+        </tbody></table></div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">All Transactions (${allBorrows.length})</div>
+      <div class="tbl-wrap"><table><thead><tr><th>Student</th><th>Book</th><th>Borrowed</th><th>Due</th><th>Returned</th><th>Status</th></tr></thead>
+      <tbody>${!allBorrows.length?'<tr><td colspan="6" style="text-align:center;color:var(--gray)">No transactions.</td></tr>':
+        [...allBorrows].reverse().map(b=>{
+          const od=b.status==='borrowed'&&isOverdue(b.dueDate);
+          const cls=b.status.startsWith('returned')?'b-ret':od?'b-over':'b-borrow';
+          return`<tr><td>${b.studentName}</td><td>${b.bookTitle}</td>
+            <td>${fmtDate(b.borrowDate)}</td><td>${fmtDate(b.dueDate)}</td>
+            <td>${fmtDate(b.returnDate)}</td>
+            <td><span class="badge ${cls}">${od?'Overdue':b.status}</span></td></tr>`;
+        }).join('')}
+      </tbody></table></div>
+    </div>`;
+}
+</script>
+</body>
+</html>

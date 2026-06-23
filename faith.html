@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Faith page of Denmark De Leon — Bible verses on God's love, strength, hope, and peace.">
+  <title>Faith — Denmark De Leon</title>
+  <link rel="icon" href="profile.jpg">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .verse-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; }
+    .verse-grid .verse-card { margin-bottom:0; }
+    @media(max-width:600px){ .verse-grid{ grid-template-columns:1fr; } .faith-tagline{ font-size:1.05rem; padding:1rem 1.2rem; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-container">
+      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <nav><ul class="nav">
+        <li><a href="homepage.html">Home</a></li><li><a href="profile.html">Profile</a></li>
+        <li><a href="autobiography.html">Autobiography</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html">Coming Soon</a></li>
+      </ul></nav>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="content-container">
+      <a href="gallery.html" class="back-link">← Back to Gallery</a>
+
+      <div class="faith-hero">
+        <h1>My Faith</h1>
+        <div class="faith-tagline">
+          <span>✦ A note to ma'am</span>
+          I don't have lovers ma'an, but I have God with me. ✝️
+        </div>
+      </div>
+
+      <div style="margin-top:2rem;">
+
+        <div class="verse-category">
+          <div class="verse-category-label">God's Love & Grace</div>
+          <div class="verse-card featured">
+            <p class="verse-text">"For God so loved the world that He gave His one and only Son, that whoever believes in Him shall not perish but have eternal life."</p>
+            <div class="verse-ref">John 3:16</div>
+          </div>
+          <div class="verse-grid">
+            <div class="verse-card"><p class="verse-text">"We love because He first loved us."</p><div class="verse-ref">1 John 4:19</div></div>
+            <div class="verse-card"><p class="verse-text">"But God demonstrates His own love for us in this: While we were still sinners, Christ died for us."</p><div class="verse-ref">Romans 5:8</div></div>
+          </div>
+        </div>
+
+        <div class="verse-category">
+          <div class="verse-category-label">Strength & Protection</div>
+          <div class="verse-card featured">
+            <p class="verse-text">"The Lord is my shepherd; I shall not want."</p>
+            <div class="verse-ref">Psalm 23:1</div>
+          </div>
+          <div class="verse-grid">
+            <div class="verse-card"><p class="verse-text">"The LORD will fight for you; you need only to be still."</p><div class="verse-ref">Exodus 14:14</div></div>
+            <div class="verse-card"><p class="verse-text">"I can do all things through Christ who strengthens me."</p><div class="verse-ref">Philippians 4:13</div></div>
+          </div>
+          <div class="verse-card" style="margin-top:0.75rem;">
+            <p class="verse-text">"The Lord is my light and my salvation — whom shall I fear? The Lord is the stronghold of my life — of whom shall I be afraid?"</p>
+            <div class="verse-ref">Psalm 27:1</div>
+          </div>
+        </div>
+
+        <div class="verse-category">
+          <div class="verse-category-label">Hope & Future</div>
+          <div class="verse-card featured">
+            <p class="verse-text">"For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future."</p>
+            <div class="verse-ref">Jeremiah 29:11</div>
+          </div>
+          <div class="verse-grid">
+            <div class="verse-card"><p class="verse-text">"Trust in the Lord with all your heart and lean not on your own understanding."</p><div class="verse-ref">Proverbs 3:5</div></div>
+            <div class="verse-card"><p class="verse-text">"And we know that in all things God works for the good of those who love Him."</p><div class="verse-ref">Romans 8:28</div></div>
+          </div>
+        </div>
+
+        <div class="verse-category">
+          <div class="verse-category-label">Peace & Rest</div>
+          <div class="verse-grid">
+            <div class="verse-card"><p class="verse-text">"Come to me, all you who are weary and burdened, and I will give you rest."</p><div class="verse-ref">Matthew 11:28</div></div>
+            <div class="verse-card"><p class="verse-text">"Do not be anxious about anything, but in every situation, present your requests to God."</p><div class="verse-ref">Philippians 4:6</div></div>
+          </div>
+          <div class="verse-card" style="margin-top:0.75rem;">
+            <p class="verse-text">"Peace I leave with you; my peace I give you. I do not give to you as the world gives. Do not let your hearts be troubled and do not be afraid."</p>
+            <div class="verse-ref">John 14:27</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="closing-note">
+        <div class="cross-divider">✝</div>
+        <p>To God be all the glory — in my studies, my projects, and every step of this journey.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
+<script>
+(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
+function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+</script>
+</body>
+</html>

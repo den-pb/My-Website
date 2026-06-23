@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Photobiography of Denmark De Leon — childhood, school days, graduation, and milestones.">
+  <title>Photobiography — Denmark De Leon</title>
+  <link rel="icon" href="profile.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-container">
+      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <nav><ul class="nav">
+        <li><a href="homepage.html">Home</a></li><li><a href="profile.html">Profile</a></li>
+        <li><a href="autobiography.html">Autobiography</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html">Coming Soon</a></li>
+      </ul></nav>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+  <main>
+    <a href="gallery.html" class="back-link">← Back to Gallery</a>
+    <h1>My Photobiography</h1>
+    <p style="color:var(--muted); margin-bottom:1.25rem;">A collection of personal moments, school days, and memorable milestones.</p>
+    <div class="photo-grid">
+      <div class="photo-item"><img src="images/photobiography/photobiography1.png" alt=""><div class="caption">Grade 10 moving up pic</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography2.png" alt=""><div class="caption">Vaccine during pandemic</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography3.jpg" alt=""><div class="caption">First time doing emcee in our church</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography4.png" alt=""><div class="caption">Grade 11 moments</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography5.png" alt=""><div class="caption">Grade 11 reporting</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography6.png" alt=""><div class="caption">Valentines day — Grade 11</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography7.png" alt=""><div class="caption">Campaign for SSG</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography8.jpg" alt=""><div class="caption">Graduationnnn 🎓</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography9.jpg" alt=""><div class="caption">Grad pic with my bestie</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography10.jpg" alt=""><div class="caption">Awards eyyy — Glory to God! 🙌</div></div>
+      <div class="photo-item"><img src="images/photobiography/photobiography11.jpg" alt=""><div class="caption">Grad pic SHS</div></div>
+    </div>
+  </main>
+  <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
+<script>
+(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
+function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+</script>
+</body>
+</html>

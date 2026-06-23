@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Denmark's favorite video clip — Jesus Reigns 2025 in Ilagan.">
+  <title>Favorite Video — Denmark De Leon</title>
+  <link rel="icon" href="profile.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-container">
+      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <nav><ul class="nav">
+        <li><a href="homepage.html">Home</a></li><li><a href="profile.html">Profile</a></li>
+        <li><a href="autobiography.html">Autobiography</a></li><li><a href="gallery.html">Gallery</a></li>
+        <li><a href="favorites.html" class="active">Favorites</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html">Coming Soon</a></li>
+      </ul></nav>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+  <main>
+    <div class="content-container">
+      <a href="favorites.html" class="back-link">← Back to Favorites</a>
+      <h1>My Favorite Video</h1>
+      <div class="media-item" style="margin-top:1.5rem;">
+        <h3>🎬 Jesus Reigns 2025 — Ilagan</h3>
+        <p>My Top 1 Favorite Video Clip</p>
+        <video controls style="width:100%; border-radius:8px;"><source src="video/myvideo.mp4" type="video/mp4">Your browser does not support the video tag.</video>
+      </div>
+    </div>
+  </main>
+  <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
+<script>
+(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
+function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Family photo gallery of Denmark De Leon — reunions, celebrations, and bonding moments.">
+  <title>Family — Denmark De Leon</title>
+  <link rel="icon" href="profile.jpg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-container">
+      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <nav><ul class="nav">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="autobiography.html">Autobiography</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.html">Coming Soon</a></li>
+      </ul></nav>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+    </div>
+  </header>
+  <main>
+    <a href="gallery.html" class="back-link">← Back to Gallery</a>
+    <h1>My Family</h1>
+    <p style="color:var(--muted); margin-bottom:1.25rem;">Cherished moments and bonding experiences with my family.</p>
+    <div class="photo-grid">
+      <div class="photo-item"><img src="images/family.jpg" alt="Family"><div class="caption">2026 New Year Celebration</div></div>
+      <div class="photo-item"><img src="images/family/family1.png" alt=""><div class="caption">Random game night</div></div>
+      <div class="photo-item"><img src="images/family/family2.png" alt=""><div class="caption">Swimming with my cousins</div></div>
+      <div class="photo-item"><img src="images/family/family3.png" alt=""><div class="caption">Bonding</div></div>
+      <div class="photo-item"><img src="images/family/family4.png" alt=""><div class="caption">Swimming with ate's</div></div>
+      <div class="photo-item"><img src="images/family/family5.png" alt=""><div class="caption">Random picture for the childhood kineme daw</div></div>
+    </div>
+  </main>
+  <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
+<script>
+(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
+function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+</script>
+</body>
+</html>
