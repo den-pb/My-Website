@@ -7,12 +7,13 @@
   <title>Home — Denmark De Leon</title>
   <link rel="icon" href="profile.jpg">
   <link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
   <header class="site-header">
     <div class="site-header-container">
       <div class="logo">
-        <img src="profile.jpg" alt="Denmark De Leon" width="32" height="32">
+        <img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy">
         <span>Denmark De Leon</span>
       </div>
       <nav>
@@ -23,10 +24,10 @@
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="favorites.html">Favorites</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="index.html">Coming Soon</a></li>
+          <li><a href="coming-soon.html">Coming Soon</a></li>
         </ul>
       </nav>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
     </div>
   </header>
 
@@ -41,12 +42,12 @@
           <a href="contact.html" class="btn">Contact Me</a>
         </div>
         <div class="social-links">
-          <a href="https://www.facebook.com/den.0001.1" target="_blank" rel="noopener noreferrer"><img src="images/facebook.png" alt="Facebook"></a>
-          <a href="https://www.instagram.com/notyour.den?igsh=ZTZscGJzMXg5MDIx" target="_blank" rel="noopener noreferrer"><img src="images/instagram.png" alt="Instagram"></a>
+          <a href="https://www.facebook.com/den.0001.1" target="_blank" rel="noopener noreferrer"><img src="images/facebook.png" alt="Facebook" loading="lazy"></a>
+          <a href="https://www.instagram.com/notyour.den?igsh=ZTZscGJzMXg5MDIx" target="_blank" rel="noopener noreferrer"><img src="images/instagram.png" alt="Instagram" loading="lazy"></a>
         </div>
       </div>
       <div class="hero-img-wrap">
-        <img src="profile.jpg" alt="Denmark De Leon">
+        <img src="profile.jpg" alt="Denmark De Leon" loading="lazy">
       </div>
     </section>
 
@@ -70,7 +71,7 @@
         <span class="card-icon">🏥</span>
         <h3>Campus Clinic System</h3>
         <p style="font-size:0.85rem; margin-bottom:1rem;">QR Code check-in, Electronic Health Records, and cloud integration for campus clinic management.</p>
-        <a href="http://localhost:5173/login" class="btn">Launch →</a>
+        <span class="btn" style="opacity:0.5; cursor:default;">Coming Soon</span>
       </div>
     </div>
 
@@ -86,6 +87,8 @@
 <script>
 (function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="script.js"></script>
 </body>
 </html>

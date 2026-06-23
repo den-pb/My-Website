@@ -7,11 +7,12 @@
   <title>Autobiography — Denmark De Leon</title>
   <link rel="icon" href="profile.jpg">
   <link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
   <header class="site-header">
     <div class="site-header-container">
-      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <div class="logo"><img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
       <nav><ul class="nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="profile.html">Profile</a></li>
@@ -19,15 +20,15 @@
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="favorites.html">Favorites</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="index.html">Coming Soon</a></li>
+        <li><a href="coming-soon.html">Coming Soon</a></li>
       </ul></nav>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
     </div>
   </header>
   <main>
     <div class="content-container">
       <h1 class="page-title">My Autobiography</h1>
-      <div class="profile-photo"><img src="profile.jpg" alt="Denmark De Leon"></div>
+      <div class="profile-photo"><img src="profile.jpg" alt="Denmark De Leon" loading="lazy"></div>
 
       <p>My name is <b>Denmark De Leon</b>, and I was born and raised in Cauayan City, Isabela. I grew up in a family that taught me important values such as hard work, perseverance, respect, and faith in God. Although my life has not always been easy, the experiences I have gone through have shaped me into the person I am today.</p>
 
@@ -50,7 +51,7 @@
       <p>My journey has been marked by both joy and pain, but every experience has contributed to who I am today. While I carry the memories of the struggles I have faced, I also carry the lessons, strength, and hope that continue to guide me toward a brighter future.</p>
 
       <div class="sig-block">
-        <img src="images/signature.png" alt="My Signature" width="160">
+        <img src="images/signature.png" alt="My Signature" width="160" loading="lazy">
         <div class="sig-name">DENMARK B. DE LEON</div>
       </div>
     </div>
@@ -59,6 +60,8 @@
 <script>
 (function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="script.js"></script>
 </body>
 </html>

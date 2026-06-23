@@ -7,19 +7,20 @@
   <title>Favorite Audio — Denmark De Leon</title>
   <link rel="icon" href="profile.jpg">
   <link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
   <header class="site-header">
     <div class="site-header-container">
-      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <div class="logo"><img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
       <nav><ul class="nav">
         <li><a href="index.html">Home</a></li><li><a href="profile.html">Profile</a></li>
         <li><a href="autobiography.html">Autobiography</a></li><li><a href="gallery.html">Gallery</a></li>
         <li><a href="favorites.html" class="active">Favorites</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="index.html">Coming Soon</a></li>
+        <li><a href="coming-soon.html">Coming Soon</a></li>
       </ul></nav>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
     </div>
   </header>
   <main>
@@ -37,6 +38,8 @@
 <script>
 (function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="script.js"></script>
 </body>
 </html>

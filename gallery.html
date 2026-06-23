@@ -7,11 +7,12 @@
   <title>Gallery — Denmark De Leon</title>
   <link rel="icon" href="profile.jpg">
   <link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
   <header class="site-header">
     <div class="site-header-container">
-      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <div class="logo"><img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
       <nav><ul class="nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="profile.html">Profile</a></li>
@@ -19,38 +20,38 @@
         <li><a href="gallery.html" class="active">Gallery</a></li>
         <li><a href="favorites.html">Favorites</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="index.html">Coming Soon</a></li>
+        <li><a href="coming-soon.html">Coming Soon</a></li>
       </ul></nav>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
     </div>
   </header>
   <main>
     <h1 class="page-title">Gallery</h1>
     <p class="page-sub">Select a category to explore memories and milestones.</p>
     <div class="gallery-grid">
-      <a href="photobiography.html" class="gallery-card">
-        <img src="images/myphoto.jpg" alt="Photobiography">
+      <a href="photobiography.html" class="gallery-card reveal">
+        <img src="images/myphoto.jpg" alt="Photobiography" loading="lazy">
         <div class="gallery-card-body">
           <span>📷 Photobiography</span>
           <p>Childhood adventures, school days, and graduation moments.</p>
         </div>
       </a>
-      <a href="family.html" class="gallery-card">
-        <img src="images/family.jpg" alt="Family">
+      <a href="family.html" class="gallery-card reveal">
+        <img src="images/family.jpg" alt="Family" loading="lazy">
         <div class="gallery-card-body">
           <span>👨‍👩‍👦 Family</span>
           <p>Reunions, holiday celebrations, and weekend bonding.</p>
         </div>
       </a>
-      <a href="friends.html" class="gallery-card">
-        <img src="images/friends.jpeg" alt="Friends">
+      <a href="friends.html" class="gallery-card reveal">
+        <img src="images/friends.jpeg" alt="Friends" loading="lazy">
         <div class="gallery-card-body">
           <span>🤝 Friends</span>
           <p>Memories with high school friends and college barkada.</p>
         </div>
       </a>
-      <a href="faith.html" class="gallery-card">
-        <img src="images/lovers.png" alt="Faith">
+      <a href="faith.html" class="gallery-card reveal">
+        <img src="images/lovers.png" alt="Faith" loading="lazy">
         <div class="gallery-card-body">
           <span>✝️ Faith</span>
           <p>Spiritual reflections, Bible verses, and beliefs.</p>
@@ -62,6 +63,8 @@
 <script>
 (function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="script.js"></script>
 </body>
 </html>

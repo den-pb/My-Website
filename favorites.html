@@ -7,11 +7,12 @@
   <title>Favorites — Denmark De Leon</title>
   <link rel="icon" href="profile.jpg">
   <link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
   <header class="site-header">
     <div class="site-header-container">
-      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <div class="logo"><img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
       <nav><ul class="nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="profile.html">Profile</a></li>
@@ -19,39 +20,39 @@
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="favorites.html" class="active">Favorites</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="index.html">Coming Soon</a></li>
+        <li><a href="coming-soon.html">Coming Soon</a></li>
       </ul></nav>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
     </div>
   </header>
   <main>
     <h1 class="page-title">My Favorites</h1>
     <p style="color:var(--muted); margin-bottom:0.5rem;">Video clips and audio tracks that inspire me.</p>
 
-    <div class="section-label">Videos</div>
+    <div class="section-label reveal">Videos</div>
     <div class="media-container">
-      <div class="media-item">
+      <div class="media-item reveal">
         <h3>🎬 My Top 1 Fav Video</h3>
         <p>First time to attend Jesus Reigns (2025) — Ilagan</p>
         <video controls><source src="video/myvideo.mp4" type="video/mp4">Your browser does not support the video tag.</video>
         <div style="margin-top:0.9rem;"><a href="video.html" class="btn">Full View</a></div>
       </div>
-      <div class="media-item">
+      <div class="media-item reveal">
         <h3>🎬 My Top 2 Fav Video</h3>
         <p>My first Campus Convergence — ENC Cauayan</p>
         <video controls><source src="video/video2.mp4" type="video/mp4">Your browser does not support the video tag.</video>
       </div>
     </div>
 
-    <div class="section-label">Audio</div>
+    <div class="section-label reveal">Audio</div>
     <div class="media-container">
-      <div class="media-item">
+      <div class="media-item reveal">
         <h3>🎵 My Top 1 Fav Audio</h3>
         <p>Way Maker — Sinach</p>
         <audio controls><source src="audio/mysong.mp3" type="audio/mpeg">Your browser does not support the audio tag.</audio>
         <div style="margin-top:0.9rem;"><a href="audio.html" class="btn">Full View</a></div>
       </div>
-      <div class="media-item">
+      <div class="media-item reveal">
         <h3>🎵 My Top 2 Fav Audio</h3>
         <p>Grace Abounds — Awake84</p>
         <audio controls><source src="audio/audio2.mp3" type="audio/mpeg">Your browser does not support the audio tag.</audio>
@@ -62,6 +63,8 @@
 <script>
 (function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="script.js"></script>
 </body>
 </html>

@@ -7,11 +7,12 @@
   <title>Profile — Denmark De Leon</title>
   <link rel="icon" href="profile.jpg">
   <link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
   <header class="site-header">
     <div class="site-header-container">
-      <div class="logo"><img src="profile.jpg" width="32" height="32"><span>Denmark De Leon</span></div>
+      <div class="logo"><img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
       <nav><ul class="nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="profile.html" class="active">Profile</a></li>
@@ -19,34 +20,34 @@
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="favorites.html">Favorites</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a href="index.html">Coming Soon</a></li>
+        <li><a href="coming-soon.html">Coming Soon</a></li>
       </ul></nav>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
     </div>
   </header>
   <main>
     <div class="content-container">
       <div class="profile-photo">
-        <img src="images/myphoto.jpg" alt="Denmark De Leon">
+        <img src="images/myphoto.jpg" alt="Denmark De Leon" loading="lazy">
         <p style="margin-top:0.75rem; font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:800; color:var(--text);">Denmark De Leon</p>
         <p style="color:var(--muted); font-size:0.82rem; margin:0;">BSIT Student · ISU Cauayan</p>
       </div>
 
-      <div class="section-label">Introduction</div>
-      <p>This is a <b>short introduction</b> about me. I am <b>Denmark</b>, and I'm actively learning HTML and web development to become a skilled IT professional.</p>
+      <div class="section-label reveal">Introduction</div>
+      <p class="reveal">This is a <b>short introduction</b> about me. I am <b>Denmark</b>, and I'm actively learning HTML and web development to become a skilled IT professional.</p>
 
-      <div class="section-label">Life Verse</div>
+      <div class="section-label reveal">Life Verse</div>
       <blockquote>"The LORD will fight for you, you only need to be silent."<br><small style="font-style:normal; font-size:0.8rem; color:var(--gold);">— Exodus 14:14</small></blockquote>
 
-      <div class="section-label">Hobbies</div>
+      <div class="section-label reveal">Hobbies</div>
       <div class="section-grid">
-        <div class="card"><span class="card-icon">🎮</span><h3>Watching Anime</h3></div>
-        <div class="card"><span class="card-icon">♟️</span><h3>Playing Chess</h3></div>
-        <div class="card"><span class="card-icon">💡</span><h3>Learning New Things</h3></div>
-        <div class="card"><span class="card-icon">💻</span><h3>Programming</h3></div>
+        <div class="card reveal"><span class="card-icon">🎮</span><h3>Watching Anime</h3></div>
+        <div class="card reveal"><span class="card-icon">♟️</span><h3>Playing Chess</h3></div>
+        <div class="card reveal"><span class="card-icon">💡</span><h3>Learning New Things</h3></div>
+        <div class="card reveal"><span class="card-icon">💻</span><h3>Programming</h3></div>
       </div>
 
-      <div class="section-label">Goals</div>
+      <div class="section-label reveal">Goals</div>
       <ol>
         <li>Finish my course</li>
         <li>Help my mother</li>
@@ -58,6 +59,8 @@
 <script>
 (function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
+function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="script.js"></script>
 </body>
 </html>
