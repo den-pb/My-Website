@@ -1,99 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Denmark De Leon — BSIT student at ISU Cauayan. Personal website featuring portfolio, gallery, faith, and projects.">
-  <meta property="og:title" content="Denmark De Leon">
-  <meta property="og:description" content="BSIT student at ISU Cauayan. Personal website featuring portfolio, gallery, faith, and projects.">
-  <meta property="og:image" content="https://denmarkdeleon.is-a.dev/profile.jpg">
-  <meta property="og:url" content="https://denmarkdeleon.is-a.dev">
-  <meta property="og:type" content="website">
-  <title>Home — Denmark De Leon</title>
-  <link rel="icon" href="profile.jpg">
-  <link rel="stylesheet" href="styles.css">
-<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<meta charset="UTF-8">
+<title>Coming Soon</title>
+<!-- Challenge: Custom fonts and colors -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+body {
+  /* Challenge: Replace background with GIF animation */
+  background-image: url('underconstruction.gif'), url('underconstruction.jpg');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  color: white;
+  font-family: 'Inter', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark overlay for readability */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 9, 15, 0.65);
+  z-index: 0;
+}
+
+.coming-soon {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  padding: 2rem;
+}
+
+/* Challenge: Domain name as heading */
+h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #c9a84c;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.domain-name {
+  display: block;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #c8c2b4;
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* Challenge: Moving text */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: #c9a84c;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.marquee span {
+  display: inline-block;
+  animation: scroll-text 12s linear infinite;
+}
+
+@keyframes scroll-text {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+#countdown {
+  font-size: 40px;
+  margin-top: 20px;
+  font-weight: 700;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #f0ece3;
+  letter-spacing: 4px;
+}
+
+.contact-info {
+  margin-top: 30px;
+  font-size: 18px;
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid #1e2535;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  display: inline-block;
+}
+
+.contact-info a {
+  color: yellow;
+  font-weight: 600;
+}
+
+.footer-info {
+  margin-top: 50px;
+  font-size: 14px;
+  color: #7a7468;
+}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="site-header-container">
-      <div class="logo">
-        <img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy">
-        <span>Denmark De Leon</span>
-      </div>
-      <nav>
-        <ul class="nav">
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="profile.html">Profile</a></li>
-          <li><a href="autobiography.html">Autobiography</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="favorites.html">Favorites</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="coming-soon.html">Coming Soon</a></li>
-        </ul>
-      </nav>
-      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
-    </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content reveal revealed">
-        <div class="hero-eyebrow">BSIT Student · ISU Cauayan · Isabela</div>
-        <h1 class="hero-title">Denmark<br><em>De Leon</em></h1>
-        <p class="hero-sub">Aspiring IT professional guided by faith — passionate about programming, chess, and building things that matter.</p>
-        <div class="hero-actions">
-          <a href="profile.html" class="btn btn-primary">View Profile</a>
-          <a href="contact.html" class="btn">Contact Me</a>
-        </div>
-        <div class="social-links">
-          <a href="https://www.facebook.com/den.0001.1" target="_blank" rel="noopener noreferrer"><img src="images/facebook.png" alt="Facebook" loading="lazy"></a>
-          <a href="https://www.instagram.com/notyour.den?igsh=ZTZscGJzMXg5MDIx" target="_blank" rel="noopener noreferrer"><img src="images/instagram.png" alt="Instagram" loading="lazy"></a>
-        </div>
-      </div>
-      <div class="hero-img-wrap">
-        <img src="profile.jpg" alt="Denmark De Leon" loading="lazy">
-      </div>
-    </section>
+<div class="coming-soon">
 
-    <div class="section-label reveal">Quick Facts</div>
-    <div class="stat-row">
-      <div class="stat-chip reveal"><strong>BSIT</strong>Course</div>
-      <div class="stat-chip reveal"><strong>ISU Cauayan</strong>University</div>
-      <div class="stat-chip reveal"><strong>Chess · Anime · Code</strong>Hobbies</div>
-      <div class="stat-chip reveal"><strong>Exodus 14:14</strong>Life Verse</div>
-    </div>
+  <!-- Challenge: Include your domain name as text heading -->
+  <h1>
+    Coming Soon
+    <span class="domain-name">denmarkdev.online</span>
+  </h1>
 
-    <div class="section-label reveal">Projects</div>
-    <div class="section-grid">
-      <div class="card reveal">
-        <span class="card-icon">📚</span>
-        <h3>WeblibSys</h3>
-        <p style="font-size:0.85rem; margin-bottom:1rem;">Web-Based Library Management System for ISU Cauayan — search, real-time inventory, role levels & data management.</p>
-        <a href="MyWeblibSys.html" class="btn btn-primary">Launch →</a>
-      </div>
-      <div class="card reveal">
-        <span class="card-icon">🏥</span>
-        <h3>Campus Clinic System</h3>
-        <p style="font-size:0.85rem; margin-bottom:1rem;">QR Code check-in, Electronic Health Records, and cloud integration for campus clinic management.</p>
-        <span class="btn" style="opacity:0.5; cursor:default;">Coming Soon</span>
-      </div>
-    </div>
+  <p>Our website is under construction. Please check back later!</p>
 
-    <div class="section-label reveal">About Me</div>
-    <div class="card reveal">
-      <p style="margin:0; font-size:0.92rem; color:var(--text-2);">I'm <strong style="color:var(--text);">Denmark</strong>, a BSIT student from Cauayan City who enjoys building digital solutions. Beyond coding, I'm active in my church community, compete in chess, and believe that technology and faith can walk hand in hand. My goal is to become a skilled IT professional who makes a positive impact.</p>
-    </div>
-  </main>
+  <!-- Challenge: Moving text for dynamic content -->
+  <div class="marquee"><span>&#9733; We are building something amazing — stay tuned! &#9733;</span></div>
 
-  <footer class="footer">
-    <p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p>
-  </footer>
+  <p id="countdown"></p>
+
+  <p class="contact-info">
+    Reach out directly:<br>
+    Mobile: <a href="tel:09691579326">09691579326</a> <br>
+    Email: <a href="mailto:denmarkdeleon0901@gmail.com">denmarkdeleon0901@gmail.com</a> <br>
+    Messenger: <a href="https://m.me/den.0001.1" target="_blank" style="color:yellow;">Message Me</a>
+  </p>
+
+  <p class="footer-info">All Rights Reserved. &copy; 2026 | denmarkdev.online</p>
+
+</div>
+
 <script>
-(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
-function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
-function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
+// Set countdown to June 26, 2026, 11:59 AM
+var countDownDate = new Date("June 26, 2026 11:59:00").getTime();
+
+var x = setInterval(function() {
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+  if (distance < 0) {
+    clearInterval(x);
+    window.location.href = "homepage.html";
+  }
+}, 1000);
 </script>
-<script src="script.js"></script>
+
 </body>
 </html>
