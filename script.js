@@ -40,6 +40,7 @@ transOverlay.className = 'page-transition';
 document.body.appendChild(transOverlay);
 
 document.addEventListener('click', function(e) {
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
   var link = e.target.closest('a');
   if (link && link.hostname === window.location.hostname && !link.hasAttribute('target') && !link.getAttribute('href').startsWith('#') && !link.getAttribute('href').startsWith('tel:') && !link.getAttribute('href').startsWith('mailto:') && link.getAttribute('href') !== '') {
     e.preventDefault();
@@ -121,7 +122,7 @@ document.querySelectorAll('.filter-bar').forEach(function(bar) {
   });
 });
 
-if (window.location.pathname.indexOf('faith') !== -1 || window.location.pathname.indexOf('faith') !== -1) {
+if (window.location.pathname.indexOf('faith') !== -1) {
   var verses = [
     { text: '"For God so loved the world that He gave His one and only Son, that whoever believes in Him shall not perish but have eternal life."', ref: 'John 3:16' },
     { text: '"I can do all things through Christ who strengthens me."', ref: 'Philippians 4:13' },

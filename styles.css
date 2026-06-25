@@ -19,7 +19,6 @@
   --border:    #1e2535;
   --border-h:  rgba(201,168,76,0.3);
   --max-w:     980px;
-  --content-w: 700px;
   --r:         12px;
   --r-sm:      7px;
   --ease:      cubic-bezier(0.4,0,0.2,1);
@@ -96,7 +95,7 @@ html *, html *::before, html *::after { transition: background-color .3s ease, b
   --surface-2: #efe9dd;
   --text:      #2a2621;
   --text-2:    #635b52;
-  --muted:     #90867b;
+  --muted:     #6b6358;
   --gold:      #c49a3a;
   --gold-dim:  rgba(196,154,58,0.08);
   --gold-line: rgba(196,154,58,0.16);
@@ -214,7 +213,7 @@ main {
   padding: 0 1.5rem 5rem;
 }
 
-.content-container { max-width: var(--content-w); margin: 0 auto; }
+
 
 /* ─── TYPE ───────────────────────────────── */
 h1,h2,h3,h4 {
@@ -227,7 +226,7 @@ h1 { font-size: 2.1rem; font-weight: 800; margin-bottom: 1rem; }
 
 h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
 
-p { margin-bottom: 1.2rem; color: var(--text-2); font-size: 0.94rem; }
+p { margin-bottom: 1.2rem; color: var(--text); font-size: 0.94rem; }
 
 mark {
   background: linear-gradient(135deg, var(--gold-dim), var(--wine-dim));
@@ -555,7 +554,8 @@ li { margin-bottom: 0.4rem; font-size: 0.94rem; color: var(--text-2); }
 }
 .gallery-card:hover::after { opacity: 1; }
 .gallery-card img {
-  width:100%; height:170px; object-fit:cover; display:block;
+  width:100%; object-fit:cover; display:block;
+  aspect-ratio: 3/2;
   transition: transform .4s ease;
 }
 .gallery-card:hover img { transform: scale(1.05); }
@@ -589,7 +589,8 @@ li { margin-bottom: 0.4rem; font-size: 0.94rem; color: var(--text-2); }
   box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
 .photo-item img {
-  width:100%; height:185px; object-fit:cover; display:block;
+  width:100%; object-fit:cover; display:block;
+  aspect-ratio: 4/3;
   transition: transform .35s ease;
 }
 .photo-item:hover img { transform: scale(1.03); }
@@ -801,6 +802,7 @@ li { margin-bottom: 0.4rem; font-size: 0.94rem; color: var(--text-2); }
   font-size:0.78rem;
   margin-top:4rem;
 }
+.footer p { color: var(--muted); }
 
 /* ─── SCROLL ANIMATIONS ──────────────────── */
 .reveal {
@@ -887,37 +889,7 @@ li { margin-bottom: 0.4rem; font-size: 0.94rem; color: var(--text-2); }
   background: rgba(255,255,255,0.2);
 }
 
-/* ─── GALLERY FILTER ─────────────────────── */
-.filter-bar {
-  display: flex; gap: 0.5rem; flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-}
-.filter-btn {
-  padding: 0.4rem 0.9rem;
-  font-size: 0.78rem; font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  background: var(--surface);
-  color: var(--muted);
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.filter-btn:hover {
-  border-color: var(--wine-line);
-  color: var(--text);
-}
-.filter-btn.active {
-  background: linear-gradient(135deg, var(--gold-dim), var(--wine-dim));
-  color: var(--gold);
-  border-color: var(--gold-line);
-}
-.filter-item {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.filter-item.hidden {
-  display: none;
-}
+
 
 /* ─── RESPONSIVE ─────────────────────────── */
 @media (max-width:860px) {
@@ -959,8 +931,6 @@ li { margin-bottom: 0.4rem; font-size: 0.94rem; color: var(--text-2); }
   .page-title { font-size:1.7rem; }
   .contact-row { padding:0.85rem 1rem; font-size:0.85rem; }
   .media-item { padding:1rem; }
-  .photo-item img { height:150px; }
-  .gallery-card img { height:140px; }
   .card { padding:1.1rem 1.2rem; }
   .faith-tagline { font-size:1.05rem; padding:1rem 1.2rem; }
   .verse-card { padding:1.1rem 1.2rem; }
@@ -976,12 +946,7 @@ li { margin-bottom: 0.4rem; font-size: 0.94rem; color: var(--text-2); }
   .btn { font-size:0.78rem; padding:0.5rem 1rem; }
   .stat-chip { font-size:0.72rem; padding:0.5rem 0.75rem; }
   .page-title { font-size:1.4rem; }
-  .coming-soon h1 { font-size:1.8rem; }
-  #countdown { font-size:1.6rem; }
-  #countdown span { min-width:35px; }
   .contact-info { padding:0.75rem; }
-  .photo-item img { height:130px; }
-  .gallery-card img { height:120px; }
   .card { padding:0.9rem 1rem; }
   .media-item { padding:0.85rem; }
 }
