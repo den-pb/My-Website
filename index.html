@@ -28,7 +28,7 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(7, 9, 15, 0.65);
+  background: rgba(7, 9, 15, 0.82);
   z-index: 0;
 }
 
@@ -92,17 +92,28 @@ h1 {
 .contact-info {
   margin-top: 30px;
   font-size: 18px;
-  background: rgba(17, 24, 39, 0.7);
+  background: linear-gradient(135deg, rgba(17,24,39,0.85) 0%, rgba(138,43,78,0.08) 100%);
   backdrop-filter: blur(12px);
-  border: 1px solid #1e2535;
-  border-radius: 12px;
+  border: 1px solid var(--wine-line);
+  border-radius: var(--r);
   padding: 1.5rem 2rem;
   display: inline-block;
+  text-align: left;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.contact-info:hover {
+  border-color: var(--gold-line);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.3);
 }
 
 .contact-info a {
-  color: yellow;
+  color: var(--gold);
   font-weight: 600;
+  transition: color 0.2s;
+}
+.contact-info a:hover {
+  color: #e2c06a;
+  text-decoration: underline;
 }
 
 .footer-info {
@@ -141,22 +152,39 @@ h1 {
 </div>
 
 <script>
-// Set countdown to June 26, 2026, 11:59 AM
 var countDownDate = new Date("June 26, 2026 11:59:00").getTime();
 
 var x = setInterval(function() {
   var now = new Date().getTime();
   var distance = countDownDate - now;
+  if (distance < 0) {
+    clearInterval(x);
+    document.querySelector(".coming-soon").innerHTML =
+      '<h1 style="font-size:2.8rem;">&#127881; We\'ve Launched!</h1>' +
+      '<p style="font-size:1.1rem;margin-bottom:1.5rem;">Welcome to denmarkdev.online</p>' +
+      '<nav style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.7rem;margin-bottom:2rem;">' +
+      '  <a href="index.html" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.7rem 1.3rem;background:linear-gradient(135deg,#c9a84c,#d4b34d);color:#07090f;border:1px solid #c9a84c;border-radius:7px;font-weight:600;text-decoration:none;">Home</a>' +
+      '  <a href="profile.html" class="btn" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.7rem 1.3rem;background:transparent;color:#f0ece3;border:1px solid #1e2535;border-radius:7px;font-weight:600;text-decoration:none;">Profile</a>' +
+      '  <a href="autobiography.html" class="btn" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.7rem 1.3rem;background:transparent;color:#f0ece3;border:1px solid #1e2535;border-radius:7px;font-weight:600;text-decoration:none;">Autobiography</a>' +
+      '  <a href="gallery.html" class="btn" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.7rem 1.3rem;background:transparent;color:#f0ece3;border:1px solid #1e2535;border-radius:7px;font-weight:600;text-decoration:none;">Gallery</a>' +
+      '  <a href="favorites.html" class="btn" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.7rem 1.3rem;background:transparent;color:#f0ece3;border:1px solid #1e2535;border-radius:7px;font-weight:600;text-decoration:none;">Favorites</a>' +
+      '  <a href="contact.html" class="btn" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.7rem 1.3rem;background:transparent;color:#f0ece3;border:1px solid #1e2535;border-radius:7px;font-weight:600;text-decoration:none;">Contact</a>' +
+      '  <a href="faith.html" class="btn" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.7rem 1.3rem;background:transparent;color:#f0ece3;border:1px solid #1e2535;border-radius:7px;font-weight:600;text-decoration:none;">Faith</a>' +
+      '</nav>' +
+      '<p class="contact-info" style="margin-top:0;">' +
+      '  Reach out directly:<br>' +
+      '  Mobile: <a href="tel:09691579326">09691579326</a><br>' +
+      '  Email: <a href="mailto:denmarkdeleon0901@gmail.com">denmarkdeleon0901@gmail.com</a><br>' +
+      '  Messenger: <a href="https://m.me/den.0001.1" target="_blank">Message Me</a>' +
+      '</p>';
+    return;
+  }
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
   document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
     + minutes + "m " + seconds + "s ";
-  if (distance < 0) {
-    clearInterval(x);
-    window.location.href = "homepage.html";
-  }
 }, 1000);
 </script>
 
