@@ -10,6 +10,12 @@
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
+  <div id="preloader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Loading...</div>
+  </div>
+  <canvas id="particle-canvas"></canvas>
+  <canvas id="confetti-canvas" style="display:none;"></canvas>
   <header class="site-header">
     <div class="site-header-container">
       <div class="logo">
@@ -34,7 +40,7 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-eyebrow">BSIT Student · ISU Cauayan · Isabela</div>
-        <h1 class="hero-title">Denmark<br><em>De Leon</em></h1>
+        <h1 class="hero-title"><span class="type-part">Denmark</span><br><span class="type-part"><em>De Leon</em></span></h1>
         <p class="hero-sub">Aspiring IT professional guided by faith — passionate about programming, chess, and building things that matter.</p>
         <div class="hero-actions">
           <a href="profile.html" class="btn btn-primary">View Profile</a>
@@ -88,6 +94,8 @@
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
 function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

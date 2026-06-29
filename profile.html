@@ -10,6 +10,11 @@
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
+  <div id="preloader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Loading...</div>
+  </div>
+  <canvas id="confetti-canvas" style="display:none;"></canvas>
   <header class="site-header">
     <div class="site-header-container">
       <div class="logo"><img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
@@ -53,6 +58,14 @@
         <li>Help my mother</li>
         <li>Become <mark>the best version of myself</mark></li>
       </ol>
+
+      <div class="section-label reveal">GitHub Stats</div>
+      <p style="font-size:0.85rem; color:var(--muted);">Live data fetched from my GitHub profile.</p>
+      <div class="github-stats reveal" data-user="den-pb">
+        <div class="github-stat"><div class="num">—</div><div class="label">Public Repos</div></div>
+        <div class="github-stat"><div class="num">—</div><div class="label">Followers</div></div>
+        <div class="github-stat"><div class="num">—</div><div class="label">Total Commits</div></div>
+      </div>
   </main>
   <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
 <script>
@@ -60,6 +73,8 @@
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
 function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

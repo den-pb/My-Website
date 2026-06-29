@@ -13,6 +13,11 @@
   </style>
 </head>
 <body>
+  <div id="preloader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Loading...</div>
+  </div>
+  <canvas id="confetti-canvas" style="display:none;"></canvas>
   <header class="site-header">
     <div class="site-header-container">
       <div class="logo"><img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
@@ -37,6 +42,7 @@
 
       <div class="verse-of-day card reveal" style="text-align:center; margin-bottom:2rem;">
         <span style="font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold); display:block; margin-bottom:0.5rem;">✦ Verse of the Day</span>
+        <span class="verse-status" style="font-size:0.6rem; color:var(--muted); display:block; margin-bottom:0.5rem;">📡 Fetching live verse...</span>
         <p class="verse-text" style="font-size:1.1rem; margin-bottom:0.5rem;"></p>
         <div class="verse-ref"></div>
         <button class="btn verse-shuffle" style="margin-top:0.75rem;">🔄 New Verse</button>
@@ -110,6 +116,8 @@
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
 function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

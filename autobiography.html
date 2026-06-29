@@ -5,14 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="The autobiography of Denmark De Leon — from childhood in Cauayan City to pursuing BSIT at ISU.">
   <title>Autobiography — Denmark De Leon</title>
-  <link rel="icon" href="profileeee.jpg">
+  <link rel="icon" href="profile.jpg">
   <link rel="stylesheet" href="styles.css">
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
+  <div id="preloader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Loading...</div>
+  </div>
+  <canvas id="confetti-canvas" style="display:none;"></canvas>
   <header class="site-header">
     <div class="site-header-container">
-      <div class="logo"><img src="profileeee.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
+      <div class="logo"><img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
       <nav><ul class="nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="profile.html">Profile</a></li>
@@ -27,27 +32,76 @@
   </header>
   <main>
       <h1 class="page-title">My Autobiography</h1>
-      <div class="profile-photo"><img src="profileeee.jpg" alt="Denmark De Leon" loading="lazy"></div>
+      <div class="profile-photo"><img src="profile.jpg" alt="Denmark De Leon" loading="lazy"></div>
 
-      <p>My name is <b>Denmark De Leon</b>, and I was born and raised in Cauayan City, Isabela. I grew up in a family that taught me important values such as hard work, perseverance, respect, and faith in God. Although my life has not always been easy, the experiences I have gone through have shaped me into the person I am today.</p>
+      <p style="text-align:center; color:var(--muted); font-size:0.85rem; margin-bottom:2rem;">Scroll down to explore the journey of my life</p>
 
-      <p>As a child, I enjoyed spending time with my family and friends. I was curious about many things and loved learning new ideas and skills. Like many children, I dreamed about what I wanted to become in the future and looked forward to achieving my goals. However, life presented challenges that tested my strength at an early age.</p>
+      <div class="timeline">
 
-      <p>One of the most difficult moments in my life happened when I was in Grade 6, when my parents decided to separate. At that age, I found it hard to understand why things had to change. The separation brought pain, confusion, and emotional struggles that affected me deeply. It was a challenging period because I had to adjust to a new reality while continuing my studies and daily life.</p>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">Childhood</span>
+            <h3>Born & Raised in Cauayan City</h3>
+            <p>I was born and raised in Cauayan City, Isabela. I grew up in a family that taught me important values such as hard work, perseverance, respect, and faith in God. I was curious about many things and loved learning new ideas and skills, dreaming about what I wanted to become in the future.</p>
+          </div>
+        </div>
 
-      <p>Despite the difficulties, I continued to move forward. As I entered high school, I learned to become more independent and resilient. I focused on my education, built meaningful friendships, and worked hard to overcome the challenges I faced. During these years, I also developed a growing interest in technology and computers, which eventually inspired me to pursue a career in Information Technology.</p>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">Grade 6</span>
+            <h3>My Parents' Separation</h3>
+            <p>One of the most difficult moments in my life happened when my parents decided to separate. At that age, I found it hard to understand why things had to change. The separation brought pain, confusion, and emotional struggles that affected me deeply, but I learned to adjust to a new reality while continuing my studies.</p>
+          </div>
+        </div>
 
-      <p>Another heartbreaking event occurred when I was in Grade 11, when my father passed away. Losing a parent is one of the most painful experiences a person can go through. His death left a deep wound in my heart and became one of the greatest trials of my life. There were moments of sadness, grief, and uncertainty, but through those difficult times, I learned the importance of faith, perseverance, and appreciating the people who remain by our side.</p>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">High School</span>
+            <h3>Building Independence</h3>
+            <p>As I entered high school, I learned to become more independent and resilient. I focused on my education, built meaningful friendships, and worked hard to overcome challenges. During these years, I also developed a growing interest in technology and computers, which inspired me to pursue a career in Information Technology.</p>
+          </div>
+        </div>
 
-      <p>These experiences taught me that life is not always easy, but challenges can help us grow stronger. Instead of allowing my circumstances to define me, I chose to use them as motivation to work harder and pursue my dreams. The struggles I faced helped me develop maturity, determination, and a deeper understanding of the value of family and relationships.</p>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">Grade 11</span>
+            <h3>Losing My Father</h3>
+            <p>Another heartbreaking event occurred when my father passed away. Losing a parent is one of the most painful experiences a person can go through. His death left a deep wound in my heart, but through those difficult times, I learned the importance of faith, perseverance, and appreciating the people who remain by our side.</p>
+          </div>
+        </div>
 
-      <p>Today, I am pursuing a <mark>Bachelor of Science in Information Technology (BSIT)</mark>. As a college student, I continue to improve my programming, technical, and problem-solving skills. I actively participate in academic activities, competitions, and student organizations that help me grow both professionally and personally. Through these experiences, I am learning not only how to become a better IT professional but also how to become a better leader and servant to others.</p>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">College</span>
+            <h3>BSIT at ISU Cauayan</h3>
+            <p>Today, I am pursuing a Bachelor of Science in Information Technology (BSIT) at Isabela State University — Cauayan Campus. I continue to improve my programming, technical, and problem-solving skills. I actively participate in academic activities, competitions, and student organizations that help me grow both professionally and personally.</p>
+          </div>
+        </div>
 
-      <p>My faith in God has been one of the greatest sources of strength throughout my journey. During times of pain, loss, and uncertainty, I found comfort and hope in my relationship with Him. My faith has taught me to trust God's plan, even when I do not fully understand it, and to keep moving forward despite life's difficulties.</p>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">Faith</span>
+            <h3>Strength Through God</h3>
+            <p>My faith in God has been one of the greatest sources of strength throughout my journey. During times of pain, loss, and uncertainty, I found comfort and hope in my relationship with Him. My faith has taught me to trust God's plan, even when I do not fully understand it, and to keep moving forward despite life's difficulties.</p>
+          </div>
+        </div>
 
-      <p>Looking ahead, my goal is to become a successful Information Technology professional who can use technology to make a positive impact on society. I want my story to be a reminder that difficult circumstances do not determine a person's future. Through hard work, faith, and perseverance, it is possible to overcome challenges and achieve meaningful goals.</p>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-year">The Future</span>
+            <h3>My Goal as an IT Professional</h3>
+            <p>My goal is to become a successful Information Technology professional who can use technology to make a positive impact on society. Through hard work, faith, and perseverance, I believe it is possible to overcome challenges and achieve meaningful goals. My journey has been marked by both joy and pain, but every experience has contributed to who I am today.</p>
+          </div>
+        </div>
 
-      <p>My journey has been marked by both joy and pain, but every experience has contributed to who I am today. While I carry the memories of the struggles I have faced, I also carry the lessons, strength, and hope that continue to guide me toward a brighter future.</p>
+      </div>
 
       <div class="sig-block">
         <img src="images/signature.png" alt="My Signature" width="160" loading="lazy">
@@ -60,6 +114,8 @@
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}
 function toggleMenu(){var n=document.querySelector('.nav');n.classList.toggle('open');var m=document.querySelector('.menu-toggle');if(m)m.textContent=n.classList.contains('open')?'✕':'☰';}
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
