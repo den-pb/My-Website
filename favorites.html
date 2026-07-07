@@ -14,6 +14,7 @@
     <div class="loader-ring"></div>
     <div class="loader-text">Loading...</div>
   </div>
+  <div class="scroll-progress" id="scrollProgress"></div>
   <header class="site-header">
     <div class="site-header-container">
       <div class="logo"><img src="profile.jpg" alt="Denmark De Leon" width="32" height="32" loading="lazy"><span>Denmark De Leon</span></div>
@@ -51,29 +52,37 @@
     <div class="section-label reveal">Audio</div>
     <div class="media-container">
       <div class="media-item reveal">
-         <h1>My Favorite Audio</h1>
+        <h2>My Favorite Audio</h2>
+      </div>
       <div class="media-item" style="margin-top:1.5rem;">
         <h3>🎵 Way Maker — Sinach</h3>
         <p>My Top 1 Favorite Audio Song</p>
         <audio controls style="width:100%;"><source src="audio/mysong.mp3" type="audio/mpeg">Your browser does not support the audio tag.</audio>
       </div>
-       <div class="media-item" style="margin-top:1.5rem;">
+      <div class="media-item" style="margin-top:1.5rem;">
         <h3>🎵 Available — Every Nation Music</h3>
         <p>My Top 2 Favorite Audio Song</p>
         <audio controls style="width:100%;"><source src="audio/available.mp3" type="audio/mpeg">Your browser does not support the audio tag.</audio>
       </div>
-       <div class="media-item" style="margin-top:1.5rem;">
+      <div class="media-item" style="margin-top:1.5rem;">
         <h3>🎵 Grace Abounds — Awake84</h3>
         <p>My Top 3 Favorite Audio Song</p>
         <audio controls style="width:100%;"><source src="audio/grace-abounds.mp3" type="audio/mpeg">Your browser does not support the audio tag.</audio>
       </div>
-       <div class="media-item" style="margin-top:1.5rem;">
+      <div class="media-item" style="margin-top:1.5rem;">
         <h3>🎵 Dwelling Place — Awake84</h3>
         <p>My Top 4 Favorite Audio Song</p>
         <audio controls style="width:100%;"><source src="audio/dwelling-place.mp3" type="audio/mpeg">Your browser does not support the audio tag.</audio>
       </div>
+    </div>
   </main>
-  <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
+  <footer class="footer">
+    <div class="footer-social">
+      <a href="https://www.facebook.com/den.0001.1" target="_blank" rel="noopener noreferrer"><img src="images/facebook.png" alt="Facebook" loading="lazy"></a>
+      <a href="https://www.instagram.com/notyour.den?igsh=ZTZscGJzMXg5MDIx" target="_blank" rel="noopener noreferrer"><img src="images/instagram.png" alt="Instagram" loading="lazy"></a>
+    </div>
+    <p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p>
+  </footer>
 <script>
 (function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}

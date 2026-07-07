@@ -14,6 +14,7 @@
     <div class="loader-ring"></div>
     <div class="loader-text">Loading...</div>
   </div>
+  <div class="scroll-progress" id="scrollProgress"></div>
   <canvas id="confetti-canvas" style="display:none;"></canvas>
   <header class="site-header">
     <div class="site-header-container">
@@ -25,7 +26,6 @@
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="favorites.html">Favorites</a></li>
         <li><a href="contact.html" class="active">Contact</a></li>
-
       </ul></nav>
       <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button><button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
     </div>
@@ -48,15 +48,27 @@
         </div>
         <div class="contact-row reveal">
           <span class="ci">📱</span>
-          <div><strong>Phone</strong><a href="tel:09691579326">09691579326</a></div>
+          <div><strong>Phone</strong><a href="tel:+639691579326">09691579326</a></div>
         </div>
         <div class="contact-row reveal">
           <span class="ci">📍</span>
           <div><strong>Address</strong><span>San Fermin, Cauayan City, Isabela</span></div>
         </div>
       </div>
+
+      <div class="section-label">Send a Message</div>
+      <div class="card">
+        <a href="mailto:denmarkdeleon0901@gmail.com" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:0.5rem;">✉️ Send Email</a>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.75rem;">Click the button above to send me an email. I'll get back to you as soon as possible. God bless! 🙏</p>
+      </div>
   </main>
-  <footer class="footer"><p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p></footer>
+  <footer class="footer">
+    <div class="footer-social">
+      <a href="https://www.facebook.com/den.0001.1" target="_blank" rel="noopener noreferrer"><img src="images/facebook.png" alt="Facebook" loading="lazy"></a>
+      <a href="https://www.instagram.com/notyour.den?igsh=ZTZscGJzMXg5MDIx" target="_blank" rel="noopener noreferrer"><img src="images/instagram.png" alt="Instagram" loading="lazy"></a>
+    </div>
+    <p>&copy; 2026 Denmark De Leon. All Rights Reserved.</p>
+  </footer>
 <script>
 (function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);var b=document.querySelector('.theme-toggle');if(b)b.textContent=t==='dark'?'🌙':'☀️';})();
 function toggleTheme(){var h=document.documentElement;var n=h.getAttribute('data-theme')==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('theme',n);var b=document.querySelector('.theme-toggle');if(b)b.textContent=n==='dark'?'🌙':'☀️';}

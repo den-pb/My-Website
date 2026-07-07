@@ -1,0 +1,32 @@
+# WordPress API dumps and temp files
+*.json
+*.txt
+*.zip
+*.py
+*.gif
+cookies.txt
+cookies2.txt
+cpanel_cookies.txt
+
+# Duplicate/backup HTML files
+homepage_content.html
+nav-menus-with-mega.html
+gallery_edit.html
+pages.html
+themes.html
+
+# Login/setup pages
+login2.html
+login3.html
+login_check.html
+login_result.html
+
+# Maintenance pages
+site_down.html
+underconstruction.gif
+underconstruction.jpg
+
+# Simple contact plugin zips
+simple-contact/
+simple-contact-v2/
+simple-contact-v3/

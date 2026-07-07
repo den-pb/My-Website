@@ -353,7 +353,7 @@ if (verseSlot) {
 var ghContainer = document.querySelector('.github-stats');
 if (ghContainer) {
   (function() {
-    var username = ghContainer.getAttribute('data-user') || 'denmark0901';
+    var username = ghContainer.getAttribute('data-user') || 'den-pb';
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://api.github.com/users/' + username, true);
     xhr.timeout = 5000;
@@ -394,6 +394,19 @@ backBtn.addEventListener('click', function() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+var progressBar = document.getElementById('scrollProgress');
+if (progressBar) {
+  function updateProgress() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) {
+      progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+    }
+  }
+  window.addEventListener('scroll', updateProgress);
+  updateProgress();
+}
+
 var transOverlay = document.createElement('div');
 transOverlay.className = 'page-transition';
 document.body.appendChild(transOverlay);
@@ -405,10 +418,10 @@ document.addEventListener('click', function(e) {
     e.preventDefault();
     var href = link.href;
     if (typeof gsap !== 'undefined') {
-      gsap.to(transOverlay, { opacity: 1, duration: 0.2, ease: 'power2.in', onComplete: function() { window.location.href = href; } });
+      gsap.to(transOverlay, { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.in', onComplete: function() { window.location.href = href; } });
     } else {
       transOverlay.classList.add('active');
-      setTimeout(function() { window.location.href = href; }, 200);
+      setTimeout(function() { window.location.href = href; }, 300);
     }
   }
 });
