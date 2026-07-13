@@ -50,7 +50,7 @@ php_value upload_max_filesize 64M
 php_value post_max_size 64M
 php_value max_execution_time 300
 
-DirectoryIndex index.php index.html
+DirectoryIndex index.html index.php
 Options -Indexes +FollowSymLinks
 ErrorDocument 404 /404.html
 ErrorDocument 403 /404.html
